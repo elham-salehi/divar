@@ -1,18 +1,59 @@
 import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme=>({
-
-    root: {
+    searchCat: {
         backgroundColor: '#fff',
-        padding: 15,
+        border: "1px solid #bdbdbd !important",
+        borderRadius: 2,
+        lineHeight: 3
+    },
+    dropdown: {
+        flex: 1,
+        position: "relative",
+        display: "inline-block"
+    },
+    searchInputContainer: {
+        flex: 2
+    },
+    dropdownBtn: {
+        width: '150px',
+        textAlign: 'right',
+        whiteSpace: "nowrap",
+        boxShadow: 'none',
+        borderRadius: 0,
+        lineHeight: 3,
+        backgroundColor: '#ededed',
+        '&:hover':{
+            boxShadow: 'none'
+        }
 
     },
-    formControl:{
-        width: "200px!important",
-
-        borderRadius: '2px!important',
-        height:"100%"
+    dropdownList: {
+        display: 'none',
+        position: 'absolute',
+        top: '100%',
+        textAlign: 'right',
+        backgroundColor: '#fafafa',
+        with: '100%',
+        boxShadow: '0 0 1px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 20%)',
+        borderRadius: '0 3px 3px 0',
+        zIndex: 1,
+        transition: 'transform .1s ease-out,-webkit-transform .1s ease-out'
     },
-    selectCat:{
+    dropdownItem: {
+        color: 'black',
+        fontSize: '12px!important',
+        padding: '12px 16px',
+        textAlign: 'right',
+        width: '100%',
+        display: 'block',
+        whiteSpace: "nowrap",
+        '&:hover': {
+            textDecoration: 'none',
+            backgroundColor: '#ededed',
+            color: '#424242'
+        }
+    },
+    selectCat: {
         '&::before': {
             borderBottom:"none!important"
         },
@@ -25,18 +66,13 @@ const useStyle = makeStyles(theme=>({
         alignItems:"flex-end",
 },
     searchInput: {
-    paddingRight:5,
-    display:"flex",
-        height:'100%',
-        width: '100%'
+        paddingRight:15,
+      
+
+
 
     },
-    searchCat: {
-        border: "1px solid #bdbdbd !important",
-        borderRadius: 2,
-        width:"70%",
-        height: '100%'
-    }
+
 }));
 
 export default useStyle;

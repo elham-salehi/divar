@@ -7,20 +7,20 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import IconComponents from "./IconComponents";
 import FilterPosts from "../filterPosts/FilterPosts";
+import {getAllCategoriesApi} from "../../api/api-categories";
+import {getAllCitiesApi} from "../../api/api-cities";
+import {setCategories, useLayoutDispatch, useLayoutState} from "../../context/LayoutContext";
+import Preloader from "../preloader/Preloader";
 
 const Categories = ({data}) => {
     const classes = useStyle();
     return (
-
-        <ButtonBase style={{width:'100%'}}>
-            <Link to={{pathname:`/categories/${data.name}`,data:data}} style={{width:"100%"}}>
-                <Grid item container direction={"row"} alignItems={"center"} className={classes.catStyle}>
-                    <IconComponents tag={data.id}/>
-                    <Typography className={classes.catName} >{data.name}</Typography>
-                </Grid>
-            </Link>
-        </ButtonBase>
-
+        <Link to={{pathname:`/categories/${data.name}`,data:data}} component={ButtonBase} style={{width:"100%"}}>
+            <Grid item container direction={"row"} alignItems={"center"} className={classes.catStyle}>
+                <IconComponents tag={data.id}/>
+                <Typography className={classes.catName} >{data.name}</Typography>
+            </Grid>
+        </Link>
 
     );
 };
@@ -28,8 +28,10 @@ let p=0;
 
 const Sidebar = () => {
     const classes = useStyle({p});
-    const[categories,setCategories]= useState([]);
-    const [scrolled,setScrolled]=React.useState(false);
+    const layoutDispatch = useLayoutDispatch();
+    const {categories}= useLayoutState();
+    const [scrolled,setScrolled]=useState(false);
+    const [isLoading,setIsLoading]= useState(true);
 
 
     const handleScroll=() => {
@@ -51,14 +53,16 @@ const Sidebar = () => {
     }
 
     useEffect(()=>{
-        axios.get("http://localhost:4000/categories")
-            .then(response => {
-                const data=response.data;
-                setCategories(data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        getAllCategoriesApi((isOk,data) => {
+            if (isOk){
+                setCategories(layoutDispatch, data);
+                setIsLoading(false);
+        }
+            else{
+                alert(data);
+            }
+        })
+
     },[]);
 
     useEffect(() => {
@@ -66,20 +70,21 @@ const Sidebar = () => {
     })
     let sidebarClasses=[];
     if(scrolled){
-        sidebarClasses.push(classes.sidebar);
+        sidebarClasses.push(classes.fixSidebar);
     }
 
 
     return (
-        <Grid  container direction={"column"}  className={classes.root}>
-            <div id={"aside"} className={sidebarClasses.join(" ")}>
+        isLoading ? <Preloader/> :
+        <Grid item  direction={"column"}  className={classes.sidebar}>
+            <Grid id={"aside"} className={sidebarClasses.join(" ")}>
                 <Typography className={classes.categoriesTitle}>دسته بندی ها</Typography>
                 {
                     categories.map(item => <Categories data={item}/>)
                 }
                 <Divider/>
                 <FilterPosts/>
-            </div>
+            </Grid>
 
         </Grid>
     );

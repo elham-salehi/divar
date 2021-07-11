@@ -11,13 +11,14 @@ const DropDownMenu = () => {
     const layoutDispatch = useLayoutDispatch();
     return (
         <div>
-            <Button aria-controls="simple-menu" aria-haspopup={dropDownOpen} onClick={() => {toggleDropDown(layoutDispatch)}} >
+            <Button aria-controls="simple-menu" aria-haspopup={dropDownOpen} onClick={() => {toggleDropDown(layoutDispatch)}}  >
               <div className={classes.menuIcon}><MenuIcon/> </div>
             </Button>
             <Menu
                 id="simple-menu"
                 anchorEl={"div"}
                 keepMounted
+                className={classes.dropdownMenu}
                 open={dropDownOpen}
                 onClose={() => {toggleDropDown(layoutDispatch)}}
             >

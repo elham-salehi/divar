@@ -1,170 +1,237 @@
-"use strict";
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Grid, InputLabel, NativeSelect, Typography} from "@material-ui/core";
+import {Button, Grid, NativeSelect, TextField, Typography} from "@material-ui/core";
 import useStyle from "./styles";
 import FormControl from "@material-ui/core/FormControl";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import {Link} from "react-router-dom";
 import classnames from "classnames";
-import {getAllCities} from "../../api/api-cities";
 import ImageIcon from '@material-ui/icons/Image';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {newPostRequest} from "../../api/api-posts";
-import {useLayoutState}  from "../../context/LayoutContext";
+import {newPostRequestApi} from "../../api/api-posts";
+import {
+    getAllCities,
+    updatePostsByCity,
+    useLayoutState,
+    useLayoutDispatch,
+    setIsLoading, setCategories,
+} from "../../context/LayoutContext";
+import {getAllCategoriesApi} from "../../api/api-categories";
+import {Autocomplete} from "@material-ui/lab";
 
 const NewPost = () => {
 
-    const classes= useStyle();
-    const inputRefs=React.useRef([]);
-    const inputImg=React.useRef([]);
-    const inputTest=React.useRef();
-    const[cities,setCities]= useState([]);
-    const [city, setCity] = React.useState('');
+    const classes = useStyle();
+    const layoutDispatch= useLayoutDispatch();
+    const {cities}= useLayoutState();
+    const inputRefs = useRef([]);
+    const inputImg = useRef([]);
+    const {categories}= useLayoutState();
+    const [city, setCity] = useState(null);
+    const [category, setCategory] = useState('');
     const [files, setFiles] = useState([]);
+    const [fileUrls, setFileUrls] = useState([]);
     const filesLength = files.length;
-    const {selectedCity}=useLayoutState();
+    const {selectedCity} = useLayoutState();
 
 
-    useEffect(()=>{
-        getAllCities((isOk,data) => {
-            if(!isOk)
+    useEffect(() => {
+        setIsLoading(layoutDispatch,true);
+
+        if(cities.length===0) {
+            getAllCities(layoutDispatch, (done) => {
+
+            });
+        }
+        getAllCategoriesApi((isOk, data) => {
+            if (!isOk)
                 alert(data.message);
-            else setCities(data);
+            else {
+                setCategories(layoutDispatch,data);
+                setIsLoading(layoutDispatch, false);
+            }
+            ;
 
         });
-        inputRefs.current = [0,0,0,0,0,0].map(
-            (ref, index) =>   inputRefs.current[index] = React.createRef()
+        inputRefs.current = [0, 0, 0, 0, 0, 0].map(
+            (ref, index) => inputRefs.current[index] = React.createRef()
         );
         if (inputImg.current.length !== filesLength) {
             // add or remove refs
-            inputImg.current = Array(filesLength).fill().map((_, i) => files[i].url || React.createRef());
-            console.log("render:",inputImg.current,inputImg.current.length,filesLength)
+            inputImg.current = Array(filesLength).fill().map((_, i) => files[i] || React.createRef());
+            console.log("render:", inputImg.current, inputImg.current.length, filesLength, {files})
         }
-    },[files]);
-    const sendPost= () => {
+    }, [files]);
+    const handleLoad = () => {
+      alert("page loaded")
+    }
+    const sendPost = () => {
+        setIsLoading(layoutDispatch,true)
+        let formData = new FormData();
+
         const title = inputRefs.current[0].current.value;
         const desc = inputRefs.current[1].current.value;
 
         const price = inputRefs.current[2].current.value;
         const cit = city;
-        let dist;
-        if( isTehran()) {
-             dist = inputRefs.current[4].current.value;
+        let dist = 'i';
+        if (isTehran()) {
+            dist = inputRefs.current[4].current.value;
+        }
+
+        // const images=inputImg.current;
+        const images = inputImg.current.map(image => image.file);
+        const cat = category;
+
+        formData.append("title", title);
+        formData.append("description", desc);
+        formData.append("price", price);
+        formData.append("city", cit);
+        formData.append("district", dist);
+        formData.append("category", cat);
+        for (let i = 0; i < filesLength; i++) {
+            formData.append('images', images[i])
+
         }
 
 
-       const images=inputImg.current;
-
-        const cat = inputRefs.current[5].current.value;
-
-       const data = {
-           "id": Math.floor(Math.random()*1000),
-           "title": title,
-           "description": desc,
-           "price": price,
-           "postTime": 2,
-           "city": cit,
-           "district": dist,
-            "image": images,
-           "category": cat
-       }
-       newPostRequest(data,(isOk) =>{
-           if (!isOk)
-              return  alert("cant send!");
-           return  alert("done");
-       })
-
+        newPostRequestApi(formData, (isOk, data) => {
+            if (!isOk) {
+                console.log(data)
+                return alert(data);
+            }
+            else {
+                updatePostsByCity(layoutDispatch, selectedCity, (done) => {
+                    if (done) {
+                        setIsLoading(layoutDispatch,false);
+                    }
+                })
+            }
+        })
 
     };
     const selectImg = () => {
-        inputTest.current.click();
+        document.getElementById("file").click();
 
     }
     const handleUpload = e => {
         let newState = [];
+        let newUrlState = [];
+
         for (let i = 0; i < e.target.files.length; i++) {
             let file = e.target.files[i];
             let url = URL.createObjectURL(file);
-            newState = [...newState, { url }];
+            newState = [...newState, {file}];
+            newUrlState = [...newUrlState, {url}];
         }
-        newState=[...files,...newState];
+        newState = [...files, ...newState];
+        newUrlState = [...fileUrls, ...newUrlState];
         setFiles(newState);
-      };
-
-    const handleChange = (event) => {
-        setCity(event.target.value);
+        setFileUrls(newUrlState);
     };
+    const defaultProps = {
+        options: cities,
+        getOptionLabel: (option) => option.name,
+    };
+    const handleChangeCategory = (event) => {
+        setCategory(event.target.value)
+    }
 
 
-    const isTehran= () => {
-        if(city==="تهران")
+    const isTehran = () => {
+        if (city === "تهران")
             return (<div>
-                <Typography className={classes.titleLabel}>محدوده آگهی</Typography>
-                <input className={classes.titleInput} ref={inputRefs.current[4]}/>
-            </div>
-            )};
+                    <Typography className={classes.label}>محدوده آگهی</Typography>
+                    <input className={classes.input} ref={inputRefs.current[4]}/>
+                </div>
+            )
+    };
 
     const showImagePath = () => {
         let indents = [];
-        for(let i = 0; i < filesLength; i++) {
+        for (let i = 0; i < filesLength; i++) {
 
             indents.push(<Grid item className={classes.imageUploaderPreview}
-                               style={{backgroundImage: `url(${files[i].url})`}}>
+                               style={{backgroundImage: `url(${fileUrls[i].url})`}}>
             </Grid>)
         }
         return indents;
-}
+    }
 
     return (
-        <Grid container direction={"column"} className={classes.root} justify={"space-between"}>
+        <Grid container direction={"column"} className={classes.newPost} justify={"space-between"}>
             <h1 className={classes.title}>ثبت آگهی</h1>
-            <Typography className={classes.titleLabel}>شهر</Typography>
-            <FormControl className={classes.margin} style={{width:'100%'}}>
-                <NativeSelect
-                    id="selectCity"
-                    variant={"standard"}
-                    value={city}
-                    onChange={handleChange}
-                    ref={inputRefs.current[3]}
-                >
-                    {cities.map(item => ( <option value={item.name}>{item.name}</option>))}
-                    <option aria-label="تهران" value="تهران" />
-                </NativeSelect>
-            </FormControl>
-            { isTehran() }
+            <Typography className={classes.label}>شهر</Typography>
+            <Autocomplete
+                {...defaultProps}
+                id="selectCity"
+                inputValue={city}
+                onInputChange={(event, newValue) => {
+                    setCity(newValue);
+                }}
+                ref={inputRefs.current[3]}
+                renderInput={(params) => <TextField {...params} label="انتخاب شهر"/>}
+            />
+            {/*<FormControl className={classes.margin} style={{width:'100%'}}>*/}
+            {/*    <InputLabel htmlFor="selectCity"> انتخاب شهر</InputLabel>*/}
+            {/*    <NativeSelect*/}
+            {/*        id="selectCity"*/}
+            {/*        variant={"standard"}*/}
+            {/*        value={city}*/}
+            {/*        onChange={handleChangeCity}*/}
+            {/*        ref={inputRefs.current[3]}*/}
+            {/*    >*/}
+            {/*        <option aria-label="None" value=""/>*/}
+            {/*        {cities.map(item => ( <option value={item.name}>{item.name}</option>))}*/}
+            {/*    </NativeSelect>*/}
+            {/*</FormControl>*/}
+            {isTehran()}
 
-            <Typography className={classes.titleLabel}>عکس آگهی</Typography>
+            <Typography className={classes.label}>عکس آگهی</Typography>
             <Grid item container direction={"row"} className={classes.imageUploader}>
                 {showImagePath()}
 
 
                 <Grid item className={classes.imageUploaderItem} onClick={selectImg}>
-                    <input type={'file'} accept="image/*" multiple ref={inputImg,inputTest}  style={{display:'none'}} onChange={handleUpload} />
-                    <img src={"/images/download.svg"} className={classes.imageUploaderBorder}/>
-                    <ImageIcon className={classnames(classes.imageUploaderIcon,classes.imageIcon)}/>
-                    <AddCircleIcon className={classnames(classes.imageUploaderIcon,classes.addCircleIcon)}/>
+                    <input type={'file'} id="file" accept="image/*" multiple ref={inputImg} style={{display: 'none'}}
+                           onChange={handleUpload}/>
+                    <img src={"/images/download.svg"} alt={"upload"} className={classes.imageUploaderBorder}/>
+                    <ImageIcon className={classnames(classes.imageUploaderIcon, classes.imageIcon)}/>
+                    <AddCircleIcon className={classnames(classes.imageUploaderIcon, classes.addCircleIcon)}/>
 
                 </Grid>
             </Grid>
-            <Typography className={classes.titleLabel}>دسته بندی</Typography>
-            <input className={classes.titleInput} ref={inputRefs.current[5]}/>
-            <Typography className={classes.titleLabel}>قیمت</Typography>
-            <input className={classes.titleInput} ref={inputRefs.current[2]}/>
-            <Typography className={classes.titleLabel}>عنوان آگهی</Typography>
-            <Typography  className={classes.helpMessage}>در عنوان آگهی به موارد مهم و چشمگیر اشاره کنید.</Typography>
-            <input  className={classes.titleInput} ref={inputRefs.current[0]}/>
-            <Typography className={classes.titleLabel}>توضیحات آگهی</Typography>
-            <Typography className={classes.helpMessage}>جزئیات و نکات قابل توجه آگهی خود را کامل و دقیق بنویسید. درج شماره موبایل در متن آگهی مجاز نیست .</Typography>
-            <TextareaAutosize className={classes.descriptionArea} ref={inputRefs.current[1]} />
-            <Grid item container direction={"row"} className={classes.submitBtn} >
+            <Typography className={classes.label}>دسته بندی</Typography>
+            <FormControl className={classes.margin} style={{width: '100%'}}>
+                <NativeSelect
+                    id="selectCategory"
+                    variant={"standard"}
+                    value={category}
+                    onChange={handleChangeCategory}
+                    ref={inputRefs.current[5]}
+                >
+                    {categories.map(item => (<option value={item.name}>{item.name}</option>))}
+                </NativeSelect>
+            </FormControl>
+            <Typography className={classes.label}>قیمت</Typography>
+            <input className={classes.input} ref={inputRefs.current[2]}/>
+            <Typography className={classes.label}>عنوان آگهی</Typography>
+            <Typography className={classes.helpMessage}>در عنوان آگهی به موارد مهم و چشمگیر اشاره کنید.</Typography>
+            <input className={classes.input} ref={inputRefs.current[0]}/>
+            <Typography className={classes.label}>توضیحات آگهی</Typography>
+            <Typography className={classes.helpMessage}>جزئیات و نکات قابل توجه آگهی خود را کامل و دقیق بنویسید. درج
+                شماره موبایل در متن آگهی مجاز نیست .</Typography>
+            <TextareaAutosize className={classes.descriptionArea} ref={inputRefs.current[1]}/>
+            <Grid item container direction={"row"} className={classes.submitBtn}>
                 <Grid item className={classes.btnContainer}>
                     <Link to={"/"}>
-                        <Button variant={"outlined"} color={"white"}  className={classnames(classes.button,classes.cancelBtn)}>انصراف</Button>
+                        <Button variant={"outlined"} color={"white"}
+                                className={classnames(classes.button, classes.cancelBtn)}>انصراف</Button>
                     </Link>
                 </Grid>
                 <Grid item className={classes.btnContainer}>
-                    <Link to={"/cities/"+selectedCity} >
-                        <Button variant={"contained"} color={"primary"} className={classes.button} onClick={sendPost} >ارسال آگهی</Button>
+                    <Link to={"/" + selectedCity}>
+                        <Button variant={"contained"} color={"primary"} className={classes.button} onClick={sendPost}>ارسال
+                            آگهی</Button>
                     </Link>
                 </Grid>
 

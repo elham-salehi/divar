@@ -3,20 +3,21 @@ import BrowsHeader from "../../components/browsHeader/BrowsHeader";
 import {Divider} from "@material-ui/core";
 import useStyle from "./styles";
 import Sidebar from "../../components/sidebar/Sidebar";
+import Grid from "@material-ui/core/Grid";
 
 const PostByCategory = (props) => {
     const classes=useStyle();
     return (
-        <div>
+        <Grid item container direction={"row"}>
             <Sidebar/>
-            <div className={classes.main}>
-                <div className={classes.categoryBrowser}>
+            <Grid className={classes.main}>
+                <Grid className={classes.browser}>
                     <BrowsHeader categoryTitle={props.match.params.category}/>
                     <Divider orientation={"horizontal"} className={classes.divider}/>
                     <h3>category name</h3>
-                </div>
-            </div>
-        </div>
+                </Grid>
+            </Grid>
+        </Grid>
     );
 };
 

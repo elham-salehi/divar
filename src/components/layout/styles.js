@@ -3,14 +3,7 @@ const useStyle = makeStyles({
     root: {
         backgroundColor:"#fff",
         width: '100%',
-        display:'flex',
-        flexDirection:'column',
     },
-    container: {
-        display:'flex',
-
-    },
-
 
 });
 

@@ -1,11 +1,12 @@
 import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles({
-    categoryBrowser: {
+    browser: {
         backgroundColor: '#fff',
-        marginLeft:"1.75rem"
+        padding: 15,
+        marginLeft:"1.75rem",
+        width:"600px",
     },
     main: {
-        display: 'flex',
         position: 'relative',
         padding:"0 0 0 1.75rem",
         marginRight: "300px",
@@ -14,6 +15,7 @@ const useStyle = makeStyles({
 
     divider: {
         backgroundColor: "rgba(0, 0, 0, 0.12)",
+        marginTop: "2rem"
     }
 
 });

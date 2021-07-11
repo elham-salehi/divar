@@ -1,34 +1,56 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import useStyle from "./styles";
-import {Grid, useMediaQuery, useTheme} from "@material-ui/core";
+import {Button, Grid, Link, Typography, useMediaQuery, useTheme} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputBase from "@material-ui/core/InputBase";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {getAllCategoriesApi} from "../../api/api-categories";
+import {setCategories, useLayoutDispatch, useLayoutState} from "../../context/LayoutContext";
 
 const BrowsHeader = ({categoryTitle}) => {
     const classes = useStyle();
+    const [showDropdown,setShowDropdown] = useState(false);
+    const [value,setValue] = useState(categoryTitle);
+    const layoutDispatch = useLayoutDispatch();
+    const {categories}= useLayoutState();
     const theme= useTheme();
     const isTabletSize= useMediaQuery(theme.breakpoints.down(1100));
-    return (
+    const hide = (e) => {
+        if(e && e.relatedTarget){
+            e.relatedTarget.click();
+        }
+        setShowDropdown(false);
+    }
+    useEffect(()=>{
+        getAllCategoriesApi((isOk,data) => {
+            if (isOk){
+                setCategories(layoutDispatch, data);
+            }
+            else{
+                alert(data);
+            }
+        })
 
-        <div className={classes.root}>
+    },[]);
+    return (
            <Grid container direction={"row"} alignItems={"center"} className={classes.searchCat}>
                {(!isTabletSize &&
-               <Grid item  alignItems={"center"}>
-                   <FormControl variant="filled" className={classes.formControl}>
-                       <Select  labelId="label" id="select" value="10"  IconComponent={ExpandMoreIcon} className={classes.selectCat}>
-                           <MenuItem value="10" alignItems={"center"}>{categoryTitle}</MenuItem>
-                           <MenuItem value="20" alignItems={"center"}>Twenty</MenuItem>
-                       </Select>
-                   </FormControl>
+               <Grid item  alignItems={"center"} classname={classes.dropdown}>
+                  <Button variant={"contained"}   className={classes.dropdownBtn} onClick={() => setShowDropdown(!showDropdown)} onBlur={hide}>
+                      {value}
+                      <ExpandMoreIcon/>
+                       <Grid container direction={"column"} className={classes.dropdownList} style={{display: showDropdown ? 'block' : 'none' }}>
+                          <Grid item> <Button  alignItems={"center"} className={classes.dropdownItem} onClick={() => setValue(categoryTitle)}>{categoryTitle}</Button></Grid>
+                           {categories.map(item => <Grid item> <Button  alignItems={"center"} className={classes.dropdownItem} onClick={() => setValue(item.name)}>{item.name}</Button></Grid>)}
+                       </Grid>
+                  </Button>
                </Grid>)}
-               <Grid item alignItems={"center"} >
-                   <InputBase placeholder={`جستجو در${categoryTitle}` } className={classes.searchInput}/>
+               <Grid item alignItems={"center"} classname={classes.searchInputContainer}  >
+                   <InputBase placeholder={`جستجو در ${value}` } className={classes.searchInput}/>
                </Grid>
            </Grid>
-        </div>
     );
 };
 

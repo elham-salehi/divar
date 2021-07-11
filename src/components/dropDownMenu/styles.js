@@ -14,12 +14,16 @@ const useStyle = makeStyles(theme=>({
         boxShadow: "none!important",
         margin: "0 10px!important",
     },
-    menuIcon:{
+    menuIcon: {
         border: "1px solid #bdbdbd!important",
         borderRadius: "3px!important",
         width: "54px!important",
         height: "40px!important",
         padding: "6px 0 0!important",
+    },
+    dropdownMenu: {
+        position: "absolute!important",
+        top: "-320px!important"
     }
 }));
 

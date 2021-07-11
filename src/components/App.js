@@ -2,34 +2,81 @@ import React from 'react';
 import Layout from "./layout/Layout";
 import PostSingle from "../pages/postSingle/PostSingle";
 import PostByCategory from "../pages/postsByCategory/PostByCategory";
-import PostByCity from "../pages/postByCity/PostByCity";
+import PostsByCity from "../pages/postsByCity/PostsByCity";
 import Home from "../pages/home/Home";
 import Page404 from "../pages/page404/Page404";
-import {BrowserRouter,Route,Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect, useLocation} from "react-router-dom";
 import {LayoutProvider} from "../context/LayoutContext";
 import NewPost from "../pages/newPost/NewPost";
-import MyDivar from "../pages/myDivar/MyDivar";
+import MyPosts from "../pages/components/myPosts/MyPosts";
+import RecentSeen from "../pages/components/recentSeen/RecentSeen";
+import Bookmarks from "../pages/components/bookmarks/Bookmarks";
+import MyNotes from "../pages/components/myNotes/MyNotes";
+import useStyle from "../pages/myDivar/styles";
+import Grid from "@material-ui/core/Grid";
+import Auth from "../pages/components/auth/Auth";
+
 
 const App = () => {
+    const classes = useStyle();
     return (
-        <BrowserRouter>
-            <Route path={"/"} render={()=> {
-                return  <LayoutProvider>
-                <Layout>
-                    <Switch>
+            <BrowserRouter>
+            <Route path={"/"} render={() => {
+                return <LayoutProvider>
+                    <Layout>
+                        <Switch>
                             <Route exact path={"/categories/:category"} component={PostByCategory}/>
                             <Route exact path={"/posts/:id"} component={PostSingle}/>
-                            <Route exact path={"/new"} component={NewPost}/>
-                            <Route exact path={"/cities/:city"} component={PostByCity}/>
-                            <Route exact path={"/my-divar"} component={MyDivar}/>
+                            <PrivateRoute exact path={"/new"} component={NewPost}/>
+                            <Route exact path={"/my-divar"} render={() => <Redirect to="/my-divar/my-posts"/>}/>
+                            <Route exact path={"/:city"} component={PostsByCity}/>
                             <Route exact path={"/"} component={Home}/>
+                            <Grid container direction={"column"} className={classes.root} justify={"space-between"}>
+                                <Grid position="static">
+                                    <PublicRoute exact path="/my-divar/login" component={Auth}/>
+                                    <PrivateRoute exact path="/my-divar/my-posts" component={MyPosts}/>
+                                    <Route exact path="/my-divar/bookmarks" component={Bookmarks}/>
+                                    <Route exact path="/my-divar/recent-seen" component={RecentSeen}/>
+                                    <PrivateRoute exact path="/my-divar/my-notes" component={MyNotes}/>
+                                </Grid>
+                            </Grid>
                             <Route exact component={Page404}/>
-                    </Switch>
-                </Layout>
+                        </Switch>
+                    </Layout>
                 </LayoutProvider>
             }}/>
+
         </BrowserRouter>
     );
 };
+const isLogin = () => !!localStorage.getItem("x-auth-token");
+
+const PublicRoute = ({component, ...props}) => {
+    return <Route {...props} render={(props) => {
+
+        if (isLogin()) {
+            return <Redirect to={"/my-divar"}/>
+
+        } else {
+            return React.createElement(component, props);
+        }
+
+    }}/>
+};
+const PrivateRoute = ({component, ...props}) => {
+    const currentLocation = useLocation().pathname;
+    console.log({currentLocation})
+    return <Route {...props} render={(props) => {
+        if (isLogin())
+            return React.createElement(component, props);
+        else return <Redirect
+            to={{
+                pathname: "/my-divar/login",
+                state: {referrer: currentLocation}
+            }}
+        />
+    }}/>
+};
+
 
 export default App;

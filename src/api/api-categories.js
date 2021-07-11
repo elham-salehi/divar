@@ -1,14 +1,12 @@
 import {getAxiosInstance} from "./api";
 
-export const getAllCitiesApi = (callback) => {
-    getAxiosInstance().get("/cities")
+export const getAllCategoriesApi = (callback) => {
+    getAxiosInstance().get("/categories")
         .then(response => {
             const data = response.data;
             callback(true,data);
         })
         .catch(error => {
-            console.log(error);
-            callback(false,error);
+            callback(false,error.response.data.message);
         })
 }
-

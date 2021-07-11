@@ -1,21 +1,17 @@
 import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme=>({
 
-    root: {
-        flex:2,
+    mainMenu: {
+        flex:"40%",
+        flexWrap: 'nowrap!important'
     },
     navItem: {
-        fontSize: "14px!important",
+        fontSize: ".75rem!important",
         fontWeight:400,
-        padding: "0 12px",
-        color: 'rgb(79 79 79)'
+        color: 'rgb(79 79 79)',
+        whiteSpace: "nowrap"
     },
-    navButton: {
-        fontWeight:"500!important",
-        fontSize: "18px!important",
-        boxShadow: "none!important",
-        margin: "0 10px!important",
-    }
+
 }));
 
 export default useStyle;

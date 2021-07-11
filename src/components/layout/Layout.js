@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import useStyle from './styles';
 import Header from "../header/Header";
+import Preloader from "../preloader/Preloader";
+import Grid from "@material-ui/core/Grid";
 
 
 const Layout = (props) => {
     const classes = useStyle();
-    return (
-        <div className={classes.root}>
-            <Header/>
-            <div className={classes.container}>
+    const [isLoading,setIsLoading]= useState(true);
+    const onLoad = () => {
+        if(isLoading)
+            return <Preloader/>
+        else
+            return ( <fragment>
                 {props.children}
-            </div>
-        </div>
+            </fragment>)
+    };
+    useEffect(()=>{
+        setIsLoading(false);
+
+    },[]);
+    return (
+        <Grid container direction={"column"} className={classes.root}>
+            <Header/>
+            {onLoad()}
+        </Grid>
     );
 };
 

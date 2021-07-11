@@ -4,14 +4,14 @@ import {makeStyles} from "@material-ui/styles";
 
 const useStyle = makeStyles(theme => ({
 
-    root: {
+    sidebar: {
         position:"absolute",
         width: '280px',
-
+        backgroundColor: '#fff',
         paddingLeft:"30px",
         paddingRight: "10px",
     },
-    sidebar: {
+    fixSidebar: {
       position:"fixed",
       transform :({ p }) => `translate(0, -${p}px)`,
         width: '280px',

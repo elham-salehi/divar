@@ -1,20 +1,27 @@
 import React from "react";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import {createMuiTheme} from "@material-ui/core/styles";
 import tinyColor from "tinycolor2";
+
 const colorPrimary = "#a62626";
 
 const Theme = createMuiTheme({
     palette: {
         primary: {
             main: colorPrimary,
-            light:tinyColor(colorPrimary).lighten().toHexString()
+            light: tinyColor(colorPrimary).lighten().toHexString()
         }
     },
     overrides: {
+        MuiButton: {
+            root: {
+                fontFamily: "shabnam!important",
+            }
+        },
         MuiTypography: {
             root: {
                 fontFamily: "shabnam!important",
-                fontSize: "1rem!important"
+                fontSize: "1rem!important",
+                backgroundColor: "#fff"
             },
         },
         MuiSelect: {
@@ -32,11 +39,10 @@ const Theme = createMuiTheme({
 
         },
     },
-            breakpoints: {
-                keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
-                values: { xs: 0, sm: 568, md: 1210, lg: 1353, xl: 1400, xxl: 1500 }
-            },
-
+    breakpoints: {
+        keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
+        values: {xs: 0, sm: 568, md: 1210, lg: 1353, xl: 1400, xxl: 1500}
+    },
 
 });
 export default Theme;

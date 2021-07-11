@@ -1,23 +1,36 @@
-import {getAxiosInstance} from "./api";
+import { getAxiosInstanceAuth , getAxiosInstance } from "./api";
 
-export const getAllPosts = (callback) => {
-    getAxiosInstance().get("/posts")
+
+export const getMyPostsApi = (callback) => {
+    getAxiosInstanceAuth().get("/my-divar/my-posts")
         .then(response => {
             const data = response.data;
-           callback(true,data);
+            callback(true,data);
+        })
+        .catch(error => {
+            callback(false,error.response.data.message);
+        })
+};
+
+export const getPostsByCityApi = (city,callback) => {
+    getAxiosInstance().get(`/${city}`)
+        .then(response => {
+            const data = response.data;
+            callback(true,data);
         })
         .catch(error => {
             console.log(error);
-            callback(false,error);
+            callback(false,error.response.data.message);
         })
-}
-export const newPostRequest= (data,callback) => {
-    getAxiosInstance().post("/posts",data)
+};
+export const newPostRequestApi= (formData,callback) => {
+    getAxiosInstanceAuth().post("/my-divar/new",formData)
         .then(response => {
-            callback(true);
+            console.log("response",response)
+            callback(true,response);
         }).catch(error => {
         console.log(error);
-        callback(false);
+        callback(false,error.response.data);
     })
 
 };

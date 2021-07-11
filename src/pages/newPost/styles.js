@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme => ({
-    root: {
+    newPost: {
         backgroundColor: '#fff',
         width:"100%",
         maxWidth:"512px!important",
@@ -75,7 +75,7 @@ const useStyle = makeStyles(theme => ({
         backgroundColor: "#fff",
         borderRadius: "50%"
     },
-    titleLabel:{
+    label:{
         color: "rgba(0,0,0,.87)",
         fontSize: "1rem",
         lineHeight: 2,
@@ -86,19 +86,32 @@ const useStyle = makeStyles(theme => ({
     margin: {
         margin: theme.spacing(1),
     },
-    titleInput: {
+    input: {
         marginTop: ".625rem",
         backgroundColor: "#fff",
         boxSizing: "border-box",
         outline: "0",
         width: "100%",
+        lineHeight: 1.5,
         fontSize: "1rem",
         borderRadius: "4px",
         border: "1px solid rgba(0,0,0,.24)",
         color: "rgba(0,0,0,.87)",
         WebkitTransition:
             "color .15s ease,border-color .15s ease,box-shadow .15s ease",
-        transition: "color .15s ease,border-color .15s ease,box-shadow .15s ease"
+        transition: "color .15s ease,border-color .15s ease,box-shadow .15s ease",
+        '&:active': {
+            borderColor: 'rgba(0,0,0,.3)!important',
+            background: '#fafafa!important',
+            color: 'rgba(0,0,0,.87)!important',
+            boxShadow: 'none',
+        },
+        '&:focus': {
+            borderColor: '#85b7d9!important',
+            background: '#fff!important',
+            color: 'rgba(0,0,0,.8)!important',
+            boxShadow: 'none'
+        }
     },
     descriptionArea: {
         marginTop: ".625rem",
@@ -109,12 +122,24 @@ const useStyle = makeStyles(theme => ({
         minHeight: "7.5rem",
         padding: ".5rem 1rem",
         display: "block",
-        outline: "none",
+        outline: 0,
         width: "100%",
         resize: "none",
-        lineHeight: 2,
+        lineHeight: 1.5,
         fontWeight: 400,
-        fontSize: "1rem"
+        fontSize: "1rem",
+        '&:active': {
+            borderColor: 'rgba(0,0,0,.3)!important',
+            background: '#fafafa!important',
+            color: 'rgba(0,0,0,.87)!important',
+            boxShadow: 'none',
+        },
+        '&:focus': {
+            borderColor: '#85b7d9!important',
+            background: '#fff!important',
+            color: 'rgba(0,0,0,.8)!important',
+            boxShadow: 'none'
+        }
 
     },
     helpMessage: {
