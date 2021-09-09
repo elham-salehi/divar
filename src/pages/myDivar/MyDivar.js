@@ -5,13 +5,6 @@ import {Link} from "react-router-dom";
 
 const MyDivar = ({value}) => {
     const classes= useStyle();
-;
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    };
 
     return (
             <Grid container direction={"column"} className={classes.root} justify={"space-between"}>

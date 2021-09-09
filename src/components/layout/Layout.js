@@ -12,9 +12,9 @@ const Layout = (props) => {
         if(isLoading)
             return <Preloader/>
         else
-            return ( <fragment>
+            return ( <React.Fragment>
                 {props.children}
-            </fragment>)
+            </React.Fragment>)
     };
     useEffect(()=>{
         setIsLoading(false);

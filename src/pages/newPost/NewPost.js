@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Grid, NativeSelect, TextField, Typography} from "@material-ui/core";
+import {Button, Grid, NativeSelect, Typography} from "@material-ui/core";
 import useStyle from "./styles";
 import FormControl from "@material-ui/core/FormControl";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
@@ -16,7 +16,9 @@ import {
     setIsLoading, setCategories,
 } from "../../context/LayoutContext";
 import {getAllCategoriesApi} from "../../api/api-categories";
-import {Autocomplete} from "@material-ui/lab";
+import {useAutocomplete} from "@material-ui/lab";
+import InputBase from "@material-ui/core/InputBase";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const NewPost = () => {
 
@@ -26,12 +28,29 @@ const NewPost = () => {
     const inputRefs = useRef([]);
     const inputImg = useRef([]);
     const {categories}= useLayoutState();
-    const [city, setCity] = useState(null);
     const [category, setCategory] = useState('');
     const [files, setFiles] = useState([]);
     const [fileUrls, setFileUrls] = useState([]);
     const filesLength = files.length;
     const {selectedCity} = useLayoutState();
+    const [city,setCity] = useState(selectedCity);
+    const {
+        getRootProps,
+        getInputProps,
+        getListboxProps,
+        getOptionProps,
+        groupedOptions,
+    } = useAutocomplete({
+        id: 'cities-autocomplete',
+        options: cities,
+        defaultValue: {name: selectedCity},
+        onChange:  (_,option) => {
+            setCity(option.name)
+        },
+        getOptionSelected:(option, value) =>  option.name === value.name  ,
+        getOptionLabel: (option) => option.name,
+    });
+
 
 
     useEffect(() => {
@@ -58,29 +77,25 @@ const NewPost = () => {
         if (inputImg.current.length !== filesLength) {
             // add or remove refs
             inputImg.current = Array(filesLength).fill().map((_, i) => files[i] || React.createRef());
-            console.log("render:", inputImg.current, inputImg.current.length, filesLength, {files})
         }
-    }, [files]);
-    const handleLoad = () => {
-      alert("page loaded")
-    }
+    }, [layoutDispatch,cities.length,filesLength,files]);
+
     const sendPost = () => {
         setIsLoading(layoutDispatch,true)
         let formData = new FormData();
 
         const title = inputRefs.current[0].current.value;
         const desc = inputRefs.current[1].current.value;
-
         const price = inputRefs.current[2].current.value;
-        const cit = city;
+
         let dist = 'i';
         if (isTehran()) {
             dist = inputRefs.current[4].current.value;
         }
 
-        // const images=inputImg.current;
         const images = inputImg.current.map(image => image.file);
         const cat = category;
+        const cit = city;
 
         formData.append("title", title);
         formData.append("description", desc);
@@ -96,7 +111,6 @@ const NewPost = () => {
 
         newPostRequestApi(formData, (isOk, data) => {
             if (!isOk) {
-                console.log(data)
                 return alert(data);
             }
             else {
@@ -128,10 +142,6 @@ const NewPost = () => {
         setFiles(newState);
         setFileUrls(newUrlState);
     };
-    const defaultProps = {
-        options: cities,
-        getOptionLabel: (option) => option.name,
-    };
     const handleChangeCategory = (event) => {
         setCategory(event.target.value)
     }
@@ -156,34 +166,27 @@ const NewPost = () => {
         }
         return indents;
     }
-
     return (
         <Grid container direction={"column"} className={classes.newPost} justify={"space-between"}>
             <h1 className={classes.title}>ثبت آگهی</h1>
             <Typography className={classes.label}>شهر</Typography>
-            <Autocomplete
-                {...defaultProps}
-                id="selectCity"
-                inputValue={city}
-                onInputChange={(event, newValue) => {
-                    setCity(newValue);
-                }}
-                ref={inputRefs.current[3]}
-                renderInput={(params) => <TextField {...params} label="انتخاب شهر"/>}
-            />
-            {/*<FormControl className={classes.margin} style={{width:'100%'}}>*/}
-            {/*    <InputLabel htmlFor="selectCity"> انتخاب شهر</InputLabel>*/}
-            {/*    <NativeSelect*/}
-            {/*        id="selectCity"*/}
-            {/*        variant={"standard"}*/}
-            {/*        value={city}*/}
-            {/*        onChange={handleChangeCity}*/}
-            {/*        ref={inputRefs.current[3]}*/}
-            {/*    >*/}
-            {/*        <option aria-label="None" value=""/>*/}
-            {/*        {cities.map(item => ( <option value={item.name}>{item.name}</option>))}*/}
-            {/*    </NativeSelect>*/}
-            {/*</FormControl>*/}
+            <Grid item className={classes.cityAutoComplete}>
+                <div {...getRootProps()} >
+                    <InputBase inputComponent={"input"} inputRef={inputRefs.current[3]}  inputValue={city}
+                               className={classes.selectCityInput} classes={{focused:classes.inputBaseFocused}} {...getInputProps()}
+                               placeholder={"انتخاب شهر..."}
+                               startAdornment={<ArrowDropDownIcon/>}
+                    />
+                </div>
+                {groupedOptions.length > 0 ? (
+                    <ul className={classes.listbox} {...getListboxProps()}>
+                        {groupedOptions.map((option, index) => (
+                            <li {...getOptionProps({ option, index })}>{option.name}</li>
+                        ))}
+                    </ul>
+                ) : null}
+            </Grid>
+
             {isTehran()}
 
             <Typography className={classes.label}>عکس آگهی</Typography>
@@ -224,7 +227,7 @@ const NewPost = () => {
             <Grid item container direction={"row"} className={classes.submitBtn}>
                 <Grid item className={classes.btnContainer}>
                     <Link to={"/"}>
-                        <Button variant={"outlined"} color={"white"}
+                        <Button variant={"outlined"}
                                 className={classnames(classes.button, classes.cancelBtn)}>انصراف</Button>
                     </Link>
                 </Grid>

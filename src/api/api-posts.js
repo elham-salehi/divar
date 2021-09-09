@@ -11,7 +11,16 @@ export const getMyPostsApi = (callback) => {
             callback(false,error.response.data.message);
         })
 };
-
+export const getPostByIDApi = (id,callback) => {
+    getAxiosInstance().get(`/posts/${id}`)
+        .then(response => {
+            const data = response.data;
+            callback(true,data);
+        })
+        .catch(error => {
+            callback(false,error);
+        })
+};
 export const getPostsByCityApi = (city,callback) => {
     getAxiosInstance().get(`/${city}`)
         .then(response => {

@@ -6,7 +6,10 @@ const useStyle = makeStyles(theme => ({
    },
    formControl:{
       width: "100%!important",
-
+   },
+   heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
    },
 }));
 

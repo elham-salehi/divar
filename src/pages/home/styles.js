@@ -1,68 +1,12 @@
 import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme=>({
-    label: {
-        display: 'block',
-    },
-    selectCityInput: {
-        width: '100%',
-        lineHeight:2,
-        border: '1px solid rgba(34,36,38,.15)',
-        borderRadius: '3px',
-        color: "#c9c9c9!important",
-        outline: 0,
-        '&:active': {
-            borderColor: 'rgba(0,0,0,.3)!important',
-            background: '#fafafa!important',
-            color: 'rgba(0,0,0,.87)!important',
-            boxShadow: 'none',
-        },
-        '&:focus': {
-            borderColor: '#85b7d9!important',
-            background: '#fff!important',
-            color: 'rgba(0,0,0,.8)!important',
-            boxShadow: 'none'
-        }
-
-    },
-    listbox: {
-        width: '100%',
-        margin: 0,
-        padding: 0,
-        zIndex: 1,
-        position: 'absolute',
-        listStyle: 'none',
-        backgroundColor: theme.palette.background.paper,
-        overflow: 'auto',
-        maxHeight: 200,
-        border: '1px solid rgba(0,0,0,.25)',
-        '& li': {
-          padding: 10
-        },
-        '& li[data-focus="true"]': {
-            backgroundColor: '#4a8df6',
-            color: 'white',
-            cursor: 'pointer',
-        },
-        '& li:active': {
-            backgroundColor: '#2977f5',
-            color: 'white',
-        },
-    },
-
     root: {
         overflowY:"auto"
     },
-    cityAutoComplete: {
-        position: 'relative',
-        width: '100%',
-        marginLeft: "auto",
-        marginRight: "auto",
-        paddingTop: "4rem",
-        maxWidth: 400,
-        [theme.breakpoints.up("md")]:{
-            display: 'none',
-        },
+    label: {
+        display: 'block',
     },
+
     descriptionContainer: {
         [theme.breakpoints.up("md")]:{
             flex:1,
@@ -73,13 +17,7 @@ const useStyle = makeStyles(theme=>({
     },
     cityContainer: {
         backgroundColor: "#fff",
-        [theme.breakpoints.up("md")]:{
-            flex:2,
-        },
-        [theme.breakpoints.down("md")]:{
-            display: 'none',
-        },
-
+        flex:2,
     },
     description: {
         fontSize: "16px!important",
@@ -135,19 +73,12 @@ const useStyle = makeStyles(theme=>({
         borderRadius: '3px',
         color: "#c9c9c9!important",
         outline: 0,
-        '&:active': {
-            borderColor: 'rgba(0,0,0,.3)!important',
-            background: '#fafafa!important',
-            color: 'rgba(0,0,0,.87)!important',
-            boxShadow: 'none',
-        },
-        '&:focus': {
-            borderColor: '#85b7d9!important',
-            background: '#fff!important',
-            color: 'rgba(0,0,0,.8)!important',
-            boxShadow: 'none'
-        }
-
+    },
+    inputBaseFocused: {
+        borderColor: '#85b7d9!important',
+        background: '#fff!important',
+        color: 'rgba(0,0,0,.8)!important',
+        boxShadow: 'none'
     },
     cityGroupHeader: {
         padding: '20px 0',

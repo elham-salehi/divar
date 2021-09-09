@@ -1,10 +1,9 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import {Link, Redirect} from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
+import {Link} from "react-router-dom";
 import useStyle from "./styles";
 import {useLayoutState} from "../../context/LayoutContext";
-import {Button, ButtonBase} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 
 const MainMenu = () => {
     const classes = useStyle();
@@ -14,7 +13,7 @@ const MainMenu = () => {
         if(isLogin()) {
             return (
             <Grid item className={classes.navItem} >
-                <Link to={`/${selectedCity}`}  component={Button} onClick={ () =>  localStorage.clear()}>خروج</Link>
+                <Button onClick={ () =>  localStorage.clear()}><Link to={`/${selectedCity}`}>خروج</Link></Button>
             </Grid>
             )
         }
@@ -23,22 +22,22 @@ const MainMenu = () => {
         <Grid item container direction={"row-reverse"} alignItems={"center"} className={classes.mainMenu}>
             {showLogout()}
             <Grid item className={classes.navItem} >
-                <Link to={"/"} component={Button}>تماس با ما</Link>
+                <Button><Link to={"/"}>تماس با ما</Link></Button>
             </Grid>
             <Grid item className={classes.navItem}>
-                <Link to={"/"} component={Button}>پشتیبانی و قوانین</Link>
+                <Button><Link to={"/"}>پشتیبانی و قوانین</Link></Button>
             </Grid>
             <Grid item className={classes.navItem} >
-                <Link to={"/"} component={Button}>بلاگ</Link>
+                <Button><Link to={"/"}>بلاگ</Link></Button>
             </Grid>
             <Grid item className={classes.navItem} >
-                <Link to={"/"} component={Button}>درباره ما</Link>
+                <Button><Link to={"/"}>درباره ما</Link></Button>
             </Grid>
             <Grid item className={classes.navItem} >
-                <Link to={"/"} component={Button}>چت</Link>
+                <Button><Link to={"/chat"}>چت</Link></Button>
             </Grid>
             <Grid item className={classes.navItem} >
-                <Link to={"/my-divar/my-posts"} component={Button}>دیوار من</Link>
+                <Button><Link to={"/my-divar/my-posts"}>دیوار من</Link></Button>
             </Grid>
 
         </Grid>

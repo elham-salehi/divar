@@ -23,6 +23,7 @@ const TabPanel = (props) => {
 };
 
 export default TabPanel;
+
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,

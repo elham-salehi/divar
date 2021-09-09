@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import useStyle from "./styles";
 import Grid from "@material-ui/core/Grid";
-import {ButtonBase, Divider, useMediaQuery} from "@material-ui/core";
+import {ButtonBase, useMediaQuery} from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import {Link} from "react-router-dom";
 import useTheme from "@material-ui/core/styles/useTheme";
@@ -38,18 +38,6 @@ const Header = () => {
             setScrolled(false);
         }
     }
-    const isCitySelected = () => {
-        if (selectedCity.length>0) {
-            console.log("ttt")
-            return "/" + selectedCity;
-        }
-        else
-        {
-            console.log("fff");
-            return "/";
-        }
-
-    }
 
     useEffect(() => {
         window.addEventListener('scroll', isScroll);
@@ -60,7 +48,7 @@ const Header = () => {
                 setCities(data);
             }
         });
-    })
+    },[setCities])
     let headerClasses = [classes.header];
     if (scrolled) {
         headerClasses.push(classes.scrolled);
@@ -102,7 +90,7 @@ const Header = () => {
                     <Grid item container direction={"row"} alignItems={"center"} className={classes.rightHeader}>
                         <Link to={ "/" + selectedCity}>
                             <Grid item className={classes.logo}>
-                                <img src={"/images/logo.svg"}/>
+                                <img src={"/images/logo.svg"} alt={"divar"}/>
                             </Grid>
                         </Link>
                             {showSelectedCity()}
@@ -130,7 +118,7 @@ const Header = () => {
                                             <InputBase placeholder={"جستجوی سریع نام شهر...."}
                                                        onChange={(e) => setSearch(e.target.value)} type="text"
                                                        endAdornment={<SearchIcon style={{margin: "7px"}}/>}
-                                                       className={classes.searchInput}/>
+                                                       className={classes.searchInput} classes={{focused:classes.inputBaseFocused}}/>
                                         </Grid>
                                         <Grid item container direction={"column"} style={{display: search ? 'none' : 'flex' }}>
                                             <Grid item className={classes.cityGroupHeader}>

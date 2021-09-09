@@ -15,6 +15,7 @@ import MyNotes from "../pages/components/myNotes/MyNotes";
 import useStyle from "../pages/myDivar/styles";
 import Grid from "@material-ui/core/Grid";
 import Auth from "../pages/components/auth/Auth";
+import Chat from "../pages/chat/Chat";
 
 
 const App = () => {
@@ -29,6 +30,8 @@ const App = () => {
                             <Route exact path={"/posts/:id"} component={PostSingle}/>
                             <PrivateRoute exact path={"/new"} component={NewPost}/>
                             <Route exact path={"/my-divar"} render={() => <Redirect to="/my-divar/my-posts"/>}/>
+                            <PrivateRoute exact path={"/chat/:id"} component={Chat}/>
+                            <PrivateRoute exact path={"/chat"} component={Chat}/>
                             <Route exact path={"/:city"} component={PostsByCity}/>
                             <Route exact path={"/"} component={Home}/>
                             <Grid container direction={"column"} className={classes.root} justify={"space-between"}>
@@ -65,7 +68,6 @@ const PublicRoute = ({component, ...props}) => {
 };
 const PrivateRoute = ({component, ...props}) => {
     const currentLocation = useLocation().pathname;
-    console.log({currentLocation})
     return <Route {...props} render={(props) => {
         if (isLogin())
             return React.createElement(component, props);

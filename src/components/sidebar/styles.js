@@ -24,7 +24,9 @@ const useStyle = makeStyles(theme => ({
     catStyle: {
         color:"rgba(0,0,0,.56)!important",
         padding:12,
-
+        whiteSpace: "nowrap",
+        width: '100%',
+        textAlign: "right"
     },
     catName: {
         fontSize:"14px!important",

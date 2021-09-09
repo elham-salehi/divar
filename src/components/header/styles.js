@@ -53,15 +53,18 @@ const useStyle = makeStyles(theme => ({
         minHeight:"100vh",
         overflowY:"scroll",
         '&::-webkit-scrollbar': {
+            display: 'block',
             width: 14,
-            height:14
-
+        },
+        '&::-webkit-scrollbar-track': {
+            background: 'transparent'
         },
         '&::-webkit-scrollbar-thumb': {
             backgroundColor: 'rgba(0,0,0,.12)',
             borderRadius: 12,
             border: "4px solid hsla(0,0%,100%,.98)",
-            backgroundClip: "padding-box"
+            backgroundClip: "padding-box",
+            height:40
         },
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(2, 4, 3),
@@ -95,18 +98,12 @@ const useStyle = makeStyles(theme => ({
         borderRadius: '3px',
         color: "#c9c9c9!important",
         outline: 'none',
-        '&:active': {
-            borderColor: 'rgba(0,0,0,.3)!important',
-            background: '#fafafa!important',
-            color: 'rgba(0,0,0,.87)!important',
-            boxShadow: 'none',
-        },
-        '&:focus': {
-            borderColor: '#85b7d9!important',
-            background: '#fff!important',
-            color: 'rgba(0,0,0,.8)!important',
-            boxShadow: 'none'
-        }
+    },
+    inputBaseFocused: {
+        borderColor: '#85b7d9!important',
+        background: '#fff!important',
+        color: 'rgba(0,0,0,.8)!important',
+        boxShadow: 'none'
     },
     cityGroupHeader: {
         padding: '20px 0',

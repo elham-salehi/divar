@@ -2,7 +2,6 @@ import React from "react";
 import {getPostsByCityApi} from "../api/api-posts";
 import {getAllCitiesApi} from "../api/api-cities";
 
-
 var LayoutStateContext = React.createContext();
 var LayoutDispatchContext = React.createContext();
 
@@ -46,7 +45,7 @@ function LayoutProvider({children}) {
         loginModalOpen: false,
         validationCodeModalOpen: false,
         isLoading: false,
-        postsByCity: []
+        postsByCity: [],
     });
     return (
         <LayoutStateContext.Provider value={state}>
@@ -88,7 +87,7 @@ export {
     toggleValidationCodeModal,
     setIsLoading,
     setPostsByCity,
-    updatePostsByCity
+    updatePostsByCity,
 };
 
 // ###########################################################

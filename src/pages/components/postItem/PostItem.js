@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import useStyle from "./styles";
 import {Link} from "react-router-dom";
-import {setIsLoading, useLayoutDispatch, useLayoutState} from "../../../context/LayoutContext";
 
 
 const PostItem = ({data}) => {
@@ -12,7 +11,8 @@ const PostItem = ({data}) => {
 
     return (
         <Grid container item  direction={"row"} className={classes.root} justify={"center"} lg={4} md={6} xs={12} >
-          <Link to={{pathname:`/posts/${data.id}`,data:data}} >
+          {/*<Link to={{pathname:`/posts/${data._id}`,data:data}} >*/}
+            <Link to={`/posts/${data._id}`} >
                    <Grid  container direction={"row"} className={classes.postItem}>
                            <Grid item  direction={"column"} alignItems={"center"} className={classes.postRight} >
                               <div className={classes.postDetails}>
@@ -29,7 +29,7 @@ const PostItem = ({data}) => {
                               </div>
                            </Grid>
                            <Grid item alignItems={"center"} className={classes.postImg}  >
-                                <img className={classes.postThumbnail} src={`http://localhost:3010/uploads/${data.images[0]}`}/>
+                                <img className={classes.postThumbnail} src={`http://localhost:3010/uploads/${data.images[0]}`} alt={data.title}/>
                            </Grid>
                    </Grid>
           </Link>

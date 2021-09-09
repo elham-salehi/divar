@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import useStyle from "./styles";
 import Sidebar from "../../components/sidebar/Sidebar";
 import BrowsHeader from "../../components/browsHeader/BrowsHeader";
 import {Divider, Grid} from "@material-ui/core";
 import Posts from "../components/posts/Posts";
-import {getAllPosts, getPostsByCityApi} from "../../api/api-posts";
+
 import {
     setIsLoading,
     useLayoutDispatch,
     useLayoutState,
-    updatePostsByCity, setSelectedCity
+    updatePostsByCity,
 } from "../../context/LayoutContext";
 import Preloader from "../../components/preloader/Preloader";
 
@@ -17,25 +17,16 @@ import Preloader from "../../components/preloader/Preloader";
 const PostsByCity = (props) => {
     const classes = useStyle();
     const layoutDispatch = useLayoutDispatch();
-    const {selectedCity}= useLayoutState();
     const {isLoading}= useLayoutState();
 
     useEffect(()=>{
-
         setIsLoading(layoutDispatch,true);
-        // getPostsByCityApi(props.match.params.city,(isOk,data) => {
-        //     if(!isOk)
-        //         alert(data);
-        //     else {
-        //         setPostsByCity(layoutDispatch,data);
-        //     }
-        // })
         updatePostsByCity(layoutDispatch,props.match.params.city,(done)=>{
             if(done)
                 setIsLoading(layoutDispatch,false);
         });
 
-    },[]);
+    },[layoutDispatch,props.match.params.city]);
 
     return(
         isLoading ? <Preloader/> :

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Grid} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
 import useStyle from "./styles";
 
 const MyPostItem = ({data}) => {
@@ -14,7 +13,6 @@ const MyPostItem = ({data}) => {
         const day = hour * 24;
         const month = day * 30;
         const year = day * 365;
-        console.log({diff})
         switch (true) {
             case diff < minute:
                 const seconds = Math.round(diff / 1000);
@@ -37,8 +35,8 @@ const MyPostItem = ({data}) => {
     return (
             <Link to={{pathname:`/my-divar/my-posts/${data._id}`,data:data}} >
                 <Grid  container direction={"row"} className={classes.myPostItem}>
-                    <Grid item direction={"column"} alignItems={"center"} className={classes.myPostImg}  >
-                        <img className={classes.myPostThumbnail} src={`http://localhost:3010/uploads/${data.images[0]}`}/>
+                    <Grid item container direction={"column"} alignItems={"center"} className={classes.myPostImg}  >
+                        <img className={classes.myPostThumbnail} src={`http://localhost:3010/uploads/${data.images[0]}`} alt={data.title}/>
                     </Grid>
                     <Grid item container  direction={"row"} alignItems={"stretch"} className={classes.myPostInfo} >
                         <Grid item container direction={"column"} className={classes.myPostInfoCol} justify={"space-between"} alignItems={"stretch"}>

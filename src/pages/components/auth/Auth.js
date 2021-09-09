@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect, useLocation,useHistory} from 'react-router-dom';
+import {useLocation,useHistory} from 'react-router-dom';
 import {Button, ButtonBase, Divider, Grid, Typography} from "@material-ui/core";
 import {
     toggleLoginModal,
@@ -56,8 +56,8 @@ const Auth = () => {
         loginApi(user, (isOk,data) => {
             if (!isOk)
                 return alert("cant login!");
-            console.log("el",data);
-            localStorage.setItem("phoneNumber",data.data["phoneNumber"])
+            localStorage.setItem("phoneNumber",data.data["phoneNumber"]);
+            localStorage.setItem("id",data.data["_id"]);
             localStorage.setItem("x-auth-token",data.headers["x-auth-token"]);
             history.push(location.state.referrer)
             return alert("done");
@@ -65,7 +65,6 @@ const Auth = () => {
         });
         toggleValidationCodeModal(layoutDispatch);
         toggleLoginModal(layoutDispatch);
-        console.log({location})
 
     };
 

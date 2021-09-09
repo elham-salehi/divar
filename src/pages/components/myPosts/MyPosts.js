@@ -5,7 +5,7 @@ import useStyle from "./styles";
 import NewPostButton from "../../../components/newPostButton/NewPostButton";
 import {getMyPostsApi} from "../../../api/api-posts";
 import MyPostItem from "../myPostItem/MyPostItem";
-import {setIsLoading, setSelectedCity, useLayoutDispatch, useLayoutState} from "../../../context/LayoutContext";
+import {setIsLoading, useLayoutDispatch, useLayoutState} from "../../../context/LayoutContext";
 import Preloader from "../../../components/preloader/Preloader";
 
 const MyPosts = () => {
@@ -20,11 +20,10 @@ const MyPosts = () => {
             if(!isOk)
                 console.log("false",data)
             else
-                console.log("true",data)
                 setPosts(data);
                 setIsLoading(layoutDispatch,false)
         });
-    },[]);
+    },[layoutDispatch]);
 
 if(!posts)
     return (

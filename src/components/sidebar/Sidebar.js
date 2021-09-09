@@ -4,23 +4,24 @@ import {Divider, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import {Link} from "react-router-dom";
-import axios from "axios";
 import IconComponents from "./IconComponents";
 import FilterPosts from "../filterPosts/FilterPosts";
 import {getAllCategoriesApi} from "../../api/api-categories";
-import {getAllCitiesApi} from "../../api/api-cities";
 import {setCategories, useLayoutDispatch, useLayoutState} from "../../context/LayoutContext";
 import Preloader from "../preloader/Preloader";
 
 const Categories = ({data}) => {
     const classes = useStyle();
     return (
-        <Link to={{pathname:`/categories/${data.name}`,data:data}} component={ButtonBase} style={{width:"100%"}}>
-            <Grid item container direction={"row"} alignItems={"center"} className={classes.catStyle}>
-                <IconComponents tag={data.id}/>
-                <Typography className={classes.catName} >{data.name}</Typography>
-            </Grid>
-        </Link>
+
+            <ButtonBase style={{width:"100%",height:"70px"}}>
+                    <Link to={{pathname:`/categories/${data.name}`,data:data}} className={classes.catStyle}>
+                           <Grid direction={"row"} container alignItems={"center"} >
+                               <IconComponents tag={data.id}/>
+                               <span style={{marginRight: 10}}>{data.name}</span>
+                           </Grid>
+                    </Link>
+            </ButtonBase>
 
     );
 };
@@ -63,7 +64,7 @@ const Sidebar = () => {
             }
         })
 
-    },[]);
+    },[layoutDispatch]);
 
     useEffect(() => {
         window.addEventListener('scroll',handleScroll)

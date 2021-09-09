@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import useStyle from "./styles";
-import {Button, Grid, Link, Typography, useMediaQuery, useTheme} from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import {Button, Grid, useMediaQuery, useTheme} from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {getAllCategoriesApi} from "../../api/api-categories";
@@ -33,12 +30,12 @@ const BrowsHeader = ({categoryTitle}) => {
             }
         })
 
-    },[]);
+    },[layoutDispatch]);
     return (
            <Grid container direction={"row"} alignItems={"center"} className={classes.searchCat}>
                {(!isTabletSize &&
                <Grid item  alignItems={"center"} classname={classes.dropdown}>
-                  <Button variant={"contained"}   className={classes.dropdownBtn} onClick={() => setShowDropdown(!showDropdown)} onBlur={hide}>
+                  <Button variant={"contained"}  className={classes.dropdownBtn} onClick={() => setShowDropdown(!showDropdown)} onBlur={hide}>
                       {value}
                       <ExpandMoreIcon/>
                        <Grid container direction={"column"} className={classes.dropdownList} style={{display: showDropdown ? 'block' : 'none' }}>

@@ -1,4 +1,3 @@
-import React from "react";
 import {createMuiTheme} from "@material-ui/core/styles";
 import tinyColor from "tinycolor2";
 
@@ -38,6 +37,13 @@ const Theme = createMuiTheme({
             }
 
         },
+        MuiLink: {
+            underlineHover: {
+                '&:hover': {
+                    textDecoration: 'none'
+                }
+            }
+        }
     },
     breakpoints: {
         keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
