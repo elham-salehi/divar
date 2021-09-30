@@ -7,7 +7,7 @@ const MyDivar = ({value}) => {
     const classes= useStyle();
 
     return (
-            <Grid container direction={"column"} className={classes.root} justify={"space-between"}>
+            <Grid container direction={"column"} className={classes.root} justifyContent={"space-between"}>
                 <Grid position="static">
                     <Tabs value={value}  aria-label="simple tabs example" indicatorColor="primary" textColor="primary" >
                         <Tab label="آگهی&zwnj;های من" component={Link}  to={'/my-divar/my-posts'}  className={classes.tabItem}/>

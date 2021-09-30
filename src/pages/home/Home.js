@@ -46,7 +46,7 @@ const Home = () => {
     return (
         isLoading ? <Preloader/> :
         <Grid container direction={"row-reverse"} >
-            <Grid item container direction={"column"} className={classes.cityContainer} alignItems={"center"} justify={"center"}>
+            <Grid item container direction={"column"} className={classes.cityContainer} alignItems={"center"} justifyContent={"center"}>
                      <Grid item container direction={"row"} className={classes.paper}>
                         <Grid container item direction={"row"} className={classes.modalHeader}>
                             <Grid item className={classes.modalTitle}>انتخاب شهر</Grid>
@@ -61,7 +61,7 @@ const Home = () => {
                                     شهرهای پربازدید
                                 </Grid>
                                 <Grid item container className={classes.cities}>
-                                    {mostVisitedCities.map(item => (<Grid item className={classes.cityItem}>
+                                    {mostVisitedCities.map((item,index) => (<Grid item key={index} className={classes.cityItem}>
                                         <Link to={"/" + item}>
                                             <div onClick={() => {
                                                 setSelectedCity(layoutDispatch, item)
@@ -76,7 +76,7 @@ const Home = () => {
                             </Grid>
                             <Grid item container className={classes.cities}>
                                 {filteredCities.map(item => (
-                                    <Grid item className={classes.cityItem}>
+                                    <Grid item key={item._id} className={classes.cityItem}>
                                         <Link to={"/"+item.name}>
                                             <div onClick={() => {setSelectedCity(layoutDispatch,item.name)
                                                 setFilteredCities(cities);
@@ -93,7 +93,7 @@ const Home = () => {
                     <p style={{lineHeight:"25px"}}>علاوه بر وبسایت، می‌تونی از دیوار روی دستگاه‌های اندرویدی، آیفون و آیپد هم استفاده کنی.</p>
                     <Divider className={classes.divider} orientation={"horizontal"}/>
                     <p style={{textAlign:"center"}}>دیوار را در شبکه‌های اجتماعی دنبال کنید:</p>
-                    <Grid item container direction={"row"} alignItems={"center"} justify={"center"}>
+                    <Grid item container direction={"row"} alignItems={"center"} justifyContent={"center"}>
                         <Link to={"/"} className={classes.socialMediaLink}>
                             <TwitterIcon style={{color:"#fff",fontSize:"1.25rem"}}/>
                         </Link>

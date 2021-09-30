@@ -10,7 +10,7 @@ const PostItem = ({data}) => {
 
 
     return (
-        <Grid container item  direction={"row"} className={classes.root} justify={"center"} lg={4} md={6} xs={12} >
+        <Grid container item  direction={"row"} className={classes.root} justifyContent={"center"} lg={4} md={6} xs={12} >
           {/*<Link to={{pathname:`/posts/${data._id}`,data:data}} >*/}
             <Link to={`/posts/${data._id}`} >
                    <Grid  container direction={"row"} className={classes.postItem}>
@@ -29,7 +29,7 @@ const PostItem = ({data}) => {
                               </div>
                            </Grid>
                            <Grid item alignItems={"center"} className={classes.postImg}  >
-                                <img className={classes.postThumbnail} src={`http://localhost:3010/uploads/${data.images[0]}`} alt={data.title}/>
+                                <img className={classes.postThumbnail} src={`https://divar-api.herokuapp.com/uploads/${data.images[0]}`} alt={data.title}/>
                            </Grid>
                    </Grid>
           </Link>

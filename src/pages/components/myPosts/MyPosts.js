@@ -27,7 +27,7 @@ const MyPosts = () => {
 
 if(!posts)
     return (
-        <Grid container direction={"column"} className={classes.root} justify={"center"} alignItems={"center"}>
+        <Grid container direction={"column"} className={classes.root} justifyContent={"center"} alignItems={"center"}>
             <MyDivar value={0}/>
             <Grid item className={classes.noPost}>
                 <Typography className={classes.noPostMessage}>تا به حال در دیوار آگهی ثبت نکرده‌اید</Typography>
@@ -42,7 +42,7 @@ if(!posts)
 else
     return(
         isLoading ? <Preloader/> :
-        <Grid container direction={"column"} className={classes.root} justify={"center"} alignItems={"center"}>
+        <Grid container direction={"column"} className={classes.root} justifyContent={"center"} alignItems={"center"}>
             <MyDivar value={0}/>
             <Grid container direction={"column"}>
                 {posts.map(item => <MyPostItem data={item} />)}

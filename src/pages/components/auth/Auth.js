@@ -71,7 +71,7 @@ const Auth = () => {
     return (
         <div>
             <MyDivar value={value}/>
-            <Grid direction={"column"} className={classes.loginMessage} justify={"center"} alignItems={"center"}>
+            <Grid direction={"column"} className={classes.loginMessage} justifyContent={"center"} alignItems={"center"}>
                 <Typography>برای مشاهده و مدیریت آگهی&zwnj;ها، وارد حساب کاربری خود شوید.</Typography>
                 <Button variant={"contained"} color={"primary"}  className={classes.loginBtn}
                         onClick={()=>{toggleLoginModal(layoutDispatch)}}>ورود به حساب کاربری</Button>

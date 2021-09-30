@@ -125,7 +125,7 @@ const Header = () => {
                                                 شهرهای پربازدید
                                             </Grid>
                                             <Grid item container className={classes.cities}>
-                                                {mostVisitedCities.map(item => (<Grid item className={classes.cityItem}>
+                                                {mostVisitedCities.map((item,index) => (<Grid item key={index} className={classes.cityItem}>
                                                     <Link to={"/" + item}>
                                                         <div onClick={() => {
                                                             setSelectedCity(layoutDispatch, item)
@@ -142,7 +142,7 @@ const Header = () => {
                                             </Grid>
                                             <Grid item container className={classes.cities} style={{height:'10px'}}>
                                                 {filteredCities.map(item => (
-                                                    <Grid item className={classes.cityItem}>
+                                                    <Grid item key={item._id} className={classes.cityItem}>
                                                         <Link to={"/" + item.name}>
                                                             <div onClick={() => {
                                                                 setSelectedCity(layoutDispatch, item.name)

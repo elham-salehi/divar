@@ -1,9 +1,9 @@
-import {createMuiTheme} from "@material-ui/core/styles";
+import {createTheme} from "@material-ui/core/styles";
 import tinyColor from "tinycolor2";
 
 const colorPrimary = "#a62626";
 
-const Theme = createMuiTheme({
+const Theme = createTheme({
     palette: {
         primary: {
             main: colorPrimary,

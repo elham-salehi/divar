@@ -167,7 +167,7 @@ const NewPost = () => {
         return indents;
     }
     return (
-        <Grid container direction={"column"} className={classes.newPost} justify={"space-between"}>
+        <Grid container direction={"column"} className={classes.newPost} justifyContent={"space-between"}>
             <h1 className={classes.title}>ثبت آگهی</h1>
             <Typography className={classes.label}>شهر</Typography>
             <Grid item className={classes.cityAutoComplete}>

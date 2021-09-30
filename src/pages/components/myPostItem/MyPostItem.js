@@ -36,10 +36,10 @@ const MyPostItem = ({data}) => {
             <Link to={{pathname:`/my-divar/my-posts/${data._id}`,data:data}} >
                 <Grid  container direction={"row"} className={classes.myPostItem}>
                     <Grid item container direction={"column"} alignItems={"center"} className={classes.myPostImg}  >
-                        <img className={classes.myPostThumbnail} src={`http://localhost:3010/uploads/${data.images[0]}`} alt={data.title}/>
+                        <img className={classes.myPostThumbnail} src={`https://divar-api.herokuapp.com/uploads/${data.images[0]}`} alt={data.title}/>
                     </Grid>
                     <Grid item container  direction={"row"} alignItems={"stretch"} className={classes.myPostInfo} >
-                        <Grid item container direction={"column"} className={classes.myPostInfoCol} justify={"space-between"} alignItems={"stretch"}>
+                        <Grid item container direction={"column"} className={classes.myPostInfoCol} justifyContent={"space-between"} alignItems={"stretch"}>
                             <Grid item className={classes.myPostTitle}>{data.title}</Grid>
                             <Grid item className={classes.myPostDetails}>
                                 {data.price} تومان<br/>{timeAgo(new Date(data.postTime).getTime())} در {data.district}

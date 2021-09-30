@@ -17,7 +17,7 @@ const Chat = (props) => {
     const classes = useStyle();
     const scrollableMessages = useRef();
     const scrollableConversations = useRef();
-    const socket = React.useRef(SocketIOClient("http://localhost:3010"));
+    const socket = React.useRef(SocketIOClient("https://divar-api.herokuapp.com"));
     const [messages, setMessages] = React.useState([]);
     const [conversations,setConversations]=  React.useState([]);
     const [newMessage, setNewMessage] = React.useState([]);
@@ -222,7 +222,7 @@ const Chat = (props) => {
     };
     const showMessageInput = (currentConversation) => {
         if(currentConversation!=='') {
-        return <Grid item container direction={"row"} className={classes.messagesFooter} justify={"center"} alignItems={"center"}>
+        return <Grid item container direction={"row"} className={classes.messagesFooter} justifyContent={"center"} alignItems={"center"}>
             <Grid item container className={classes.sendIcon}><IconButton className={classes.sendIconBtn} onClick={()=>{sendMessage(currentConversation)}}><SendIcon/></IconButton></Grid>
             <textarea
                 value={newMessage} onChange={e => setNewMessage(e.target.value)}
@@ -277,13 +277,13 @@ const Chat = (props) => {
     };
     const isTyping = () => {
         if(typing)
-                return  <Grid item container style={{flex:1}} justify={"center"} className={classes.conversationStatus} >در حال نوشتن...</Grid>
+                return  <Grid item container style={{flex:1}} justifyContent={"center"} className={classes.conversationStatus} >در حال نوشتن...</Grid>
     }
     const getStatus = () => {
         if(online)
-              return <Grid item container style={{flex: 1}} justify={"center"}
+              return <Grid item container style={{flex: 1}} justifyContent={"center"}
                                  className={classes.conversationStatus}>آنلاین</Grid>
-        else  return  <Grid item container style={{flex:1}} justify={"center"} className={classes.conversationStatus} >آفلاین</Grid>
+        else  return  <Grid item container style={{flex:1}} justifyContent={"center"} className={classes.conversationStatus} >آفلاین</Grid>
 
     };
     const isTypingTimeout = () => {
@@ -308,20 +308,20 @@ const Chat = (props) => {
              return conversation.post.title
     }
     return (
-        <Grid container className={classes.chat} justify={"center"}>
+        <Grid container className={classes.chat} justifyContent={"center"}>
             <Grid item container direction={"column"} className={classes.conversationList} >
-                <Grid item container direction={"row"} className={classes.conversationListHeader} justify={"center"}>
+                <Grid item container direction={"row"} className={classes.conversationListHeader} justifyContent={"center"}>
                     <Grid item container className={classes.chatSetting}><SettingsIcon/></Grid>
                     <Grid item container className={classes.chatTitle}>چت دیوار</Grid>
                 </Grid>
-                <Grid item container direction={"column"} className={classes.conversationListBody} ref={scrollableConversations} justify={"flex-start"}>
+                <Grid item container direction={"column"} className={classes.conversationListBody} ref={scrollableConversations} justifyContent={"flex-start"}>
                     <Grid item container direction={"column"}>
                         {conversations.map((conversation) => {
                             return  <ButtonBase onClick={() =>{handleShowConversation(conversation)}} style={{width:"100%"}}>
                                 <div className={classNames(classes.conversationItem,
                                     conversation._id === currentConversation._id && classes.conversationItemActive)}>
                                     <div className={classes.conversationItemImage}>
-                                        <img src={`http://localhost:3010/uploads/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
+                                        <img src={`https://divar-api.herokuapp.com/uploads/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
                                     </div>
                                     {unreadMessages(conversation.hasUnreadMessages)}
                                     <div className={classes.conversationItemTitle}>{showConversationTitle(conversation)}</div>
@@ -332,16 +332,16 @@ const Chat = (props) => {
                         })}
                     </Grid>
                 </Grid>
-                <Grid item container direction={"row"} className={classes.conversationListFooter} justify={"center"}></Grid>
+                <Grid item container direction={"row"} className={classes.conversationListFooter} justifyContent={"center"}></Grid>
             </Grid>
             <Grid item container direction={"column"} className={classes.messagesContainer}>
-                <Grid item container direction={"row"} className={classes.messagesHeader} justify={"center"} alignItems={"center"}>
-                   <Grid item container direction={"column"} style={{flex:1}} justify={"center"}>
-                       <Grid item container style={{flex:1}} justify={"center"} >{postTitle}</Grid>
+                <Grid item container direction={"row"} className={classes.messagesHeader} justifyContent={"center"} alignItems={"center"}>
+                   <Grid item container direction={"column"} style={{flex:1}} justifyContent={"center"}>
+                       <Grid item container style={{flex:1}} justifyContent={"center"} >{postTitle}</Grid>
                        {getStatus()}
                    </Grid>
-                    <Grid item container style={{width:35}} justify={"flex-end"}><CallIcon/></Grid>
-                    <Grid item container style={{width:35}} justify={"flex-end"} ><MoreVertIcon/></Grid>
+                    <Grid item container style={{width:35}} justifyContent={"flex-end"}><CallIcon/></Grid>
+                    <Grid item container style={{width:35}} justifyContent={"flex-end"} ><MoreVertIcon/></Grid>
                 </Grid>
                 <div className={classes.messagesBody} ref={scrollableMessages}>
                 {messages.map((message) => {

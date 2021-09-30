@@ -24,7 +24,7 @@ const DropDownMenu = () => {
               <Grid className={classes.dropdownContainer} style={{display: dropDownOpen ? 'block' : 'none' }}>
                   <ul className={classes.dropdownList}>
                       <Link to={"/my-divar/my-posts"} >
-                          <Button className={classes.dropdownLink} labeleStyle={{position: 'absolute',top:0,left: -10}}>
+                          <Button className={classes.dropdownLink} labelestyle={{position: 'absolute',top:0,left: -10}}>
                             <li>دیوار من</li>
                           </Button>
                       </Link>

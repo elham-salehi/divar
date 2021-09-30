@@ -34,7 +34,7 @@ const App = () => {
                             <PrivateRoute exact path={"/chat"} component={Chat}/>
                             <Route exact path={"/:city"} component={PostsByCity}/>
                             <Route exact path={"/"} component={Home}/>
-                            <Grid container direction={"column"} className={classes.root} justify={"space-between"}>
+                            <Grid container direction={"column"} className={classes.root} justifyContent={"space-between"}>
                                 <Grid position="static">
                                     <PublicRoute exact path="/my-divar/login" component={Auth}/>
                                     <PrivateRoute exact path="/my-divar/my-posts" component={MyPosts}/>

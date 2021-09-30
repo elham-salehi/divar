@@ -34,7 +34,7 @@ const BrowsHeader = ({categoryTitle}) => {
     return (
            <Grid container direction={"row"} alignItems={"center"} className={classes.searchCat}>
                {(!isTabletSize &&
-               <Grid item  alignItems={"center"} classname={classes.dropdown}>
+               <Grid item  classname={classes.dropdown}>
                   <Button variant={"contained"}  className={classes.dropdownBtn} onClick={() => setShowDropdown(!showDropdown)} onBlur={hide}>
                       {value}
                       <ExpandMoreIcon/>
@@ -44,7 +44,7 @@ const BrowsHeader = ({categoryTitle}) => {
                        </Grid>
                   </Button>
                </Grid>)}
-               <Grid item alignItems={"center"} classname={classes.searchInputContainer}  >
+               <Grid item classname={classes.searchInputContainer}  >
                    <InputBase placeholder={`جستجو در ${value}` } className={classes.searchInput}/>
                </Grid>
            </Grid>
