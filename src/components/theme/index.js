@@ -13,12 +13,12 @@ const Theme = createTheme({
     overrides: {
         MuiButton: {
             root: {
-                fontFamily: "shabnam!important",
+                fontFamily: "IRANSans!important",
             }
         },
         MuiTypography: {
             root: {
-                fontFamily: "shabnam!important",
+                fontFamily: "IRANSans!important",
                 fontSize: "1rem!important",
                 backgroundColor: "#fff"
             },
@@ -47,7 +47,7 @@ const Theme = createTheme({
     },
     breakpoints: {
         keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
-        values: {xs: 0, sm: 568, md: 1210, lg: 1353, xl: 1400, xxl: 1500}
+        values: {xs: 0, sm: 568, md: 1100, lg: 1353, xl: 1400, xxl: 1500}
     },
 
 });

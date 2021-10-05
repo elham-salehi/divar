@@ -1,0 +1,33 @@
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: bold;
+    src: url('./fonts/iransans/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),
+    /* FF39+,Chrome36+, Opera24+*/
+}
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 500;
+    src: url('./fonts/iransans/IRANSansWeb(FaNum)_Medium.woff2') format('woff2');
+    /* FF39+,Chrome36+, Opera24+*/
+}
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 300;
+    src: url('./fonts/iransans/IRANSansWeb(FaNum)_Light.woff2') format('woff2');
+    /* FF39+,Chrome36+, Opera24+*/
+
+}
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('./fonts/iransans/IRANSansWeb(FaNum).woff2') format('woff2');
+    /* FF39+,Chrome36+, Opera24+*/
+
+}

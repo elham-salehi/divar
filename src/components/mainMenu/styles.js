@@ -6,9 +6,9 @@ const useStyle = makeStyles(theme=>({
         flexWrap: 'nowrap!important'
     },
     navItem: {
-        fontSize: ".75rem!important",
-        fontWeight:400,
-        color: 'rgb(79 79 79)',
+        fontSize: ".75rem",
+        fontWeight:500,
+        color: 'rgb(0 0 0 / 56%)',
         whiteSpace: "nowrap"
     },
 

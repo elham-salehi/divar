@@ -2,7 +2,7 @@ import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from "@material-ui/core/Button";
 import useStyle from "./styles";
-import {toggleDropDown, useLayoutDispatch, useLayoutState} from "../../context/LayoutContext";
+import {toggleDropDown, closeDropDown, useLayoutDispatch, useLayoutState} from "../../context/LayoutContext";
 import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
 
@@ -14,11 +14,11 @@ const DropDownMenu = () => {
         if(e && e.relatedTarget){
             e.relatedTarget.click();
         }
-        toggleDropDown(layoutDispatch)
+        closeDropDown(layoutDispatch)
     }
     return (
         <Grid className={classes.dropdownMenu}>
-            <Button className={classes.dropdownButton}  onClick={() => toggleDropDown(layoutDispatch)} onBlur={hide} >
+            <Button className={classes.dropdownButton}  onClick={() => toggleDropDown(layoutDispatch)} onBlur={hide} onTouchCancel={hide} >
              <MenuIcon/>
             </Button>
               <Grid className={classes.dropdownContainer} style={{display: dropDownOpen ? 'block' : 'none' }}>

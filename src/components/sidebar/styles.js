@@ -5,7 +5,6 @@ import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme => ({
 
     sidebar: {
-        position:"absolute",
         width: '280px',
         backgroundColor: '#fff',
         paddingLeft:"30px",

@@ -9,7 +9,7 @@ const NewPostButton = () => {
     return (
         <Grid item container className={classes.newPost} direction={"row-reverse"}>
             <Link to={"/new"}>
-                    <Button variant={"contained"} color={"primary"} className={classes.newPostBtn}>ثبت رایگان آگهی</Button>
+                    <Button variant={"contained"} color={"primary"} className={classes.newPostBtn}>ثبت آگهی</Button>
             </Link>
         </Grid>
     );

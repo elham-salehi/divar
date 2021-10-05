@@ -7,9 +7,9 @@ import Grid from "@material-ui/core/Grid";
 const Preloader = () => {
     const classes = useStyle();
     return (
-        <Grid container direction={"column"} className={classes.root}>
-            <Grid item container direction={"column"} className={classes.container} alignItems={"center"} >
-                <Grid item className={classes.circles} ><CircularProgress   variant="determinate"
+        <Grid container direction={"column"} className={classes.root} justifyContent={"center"}>
+            <Grid item container direction={"column"} alignItems={"center"} >
+                <Grid item container className={classes.circles} alignItems={"center"} justifyContent={"center"} ><CircularProgress   variant="determinate"
                                                className={classes.bottom}
                                                size={40}
                                                thickness={4}

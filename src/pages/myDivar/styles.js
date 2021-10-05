@@ -17,7 +17,7 @@ const useStyle = makeStyles(theme => ({
         marginBottom:0,
         fontSize: ".875rem!important",
         fontWeight: "700!important",
-        fontFamily: "shabnam!important",
+        fontFamily: "IRANSans!important",
         "&:hover":{
             color: "rgba(0,0,0,.87)"
         }

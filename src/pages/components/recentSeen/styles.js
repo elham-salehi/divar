@@ -17,7 +17,7 @@ const useStyle = makeStyles(theme => ({
         marginBottom:0,
         fontSize: ".875rem!important",
         fontWeight: "700!important",
-        fontFamily: "shabnam!important",
+        fontFamily: "IRANSans!important",
         "&:hover":{
             color: "rgba(0,0,0,.87)"
         }
@@ -33,7 +33,7 @@ const useStyle = makeStyles(theme => ({
         fontWeight:"500!important",
         fontSize: "1rem!important",
         boxShadow: "none!important",
-        fontFamily: "shabnam!important",
+        fontFamily: "IRANSans!important",
     },
     modal: {
         display: 'flex',
@@ -125,7 +125,7 @@ const useStyle = makeStyles(theme => ({
         fontWeight:"500!important",
         fontSize: "1rem!important",
         boxShadow: "none!important",
-        fontFamily: "shabnam!important",
+        fontFamily: "IRANSans!important",
         top:0,
         left:0
     }

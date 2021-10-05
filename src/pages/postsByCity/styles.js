@@ -2,14 +2,14 @@ import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles({
     browser: {
         backgroundColor: '#fff',
-        padding: 15,
+        padding: 10,
         marginLeft:"1.75rem",
-        width:"600px",
+        width: "65%"
     },
     main: {
         position: 'relative',
         padding:"0 0 0 1.75rem",
-        marginRight: "300px",
+        marginRight: "30px",
         flex:7
     },
     divider: {

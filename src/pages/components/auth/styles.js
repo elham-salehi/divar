@@ -22,7 +22,7 @@ const useStyle = makeStyles(theme => ({
         fontWeight:"500!important",
         fontSize: "1rem!important",
         boxShadow: "none!important",
-        fontFamily: "shabnam!important",
+        fontFamily: "IRANSans!important",
     },
     modal: {
         display: 'flex',
@@ -131,7 +131,7 @@ const useStyle = makeStyles(theme => ({
         fontWeight:"500!important",
         fontSize: "1rem!important",
         boxShadow: "none!important",
-        fontFamily: "shabnam!important",
+        fontFamily: "IRANSans!important",
         top:0,
         left:0
     }

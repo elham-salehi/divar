@@ -21,7 +21,7 @@ const useStyle = makeStyles(theme=>({
     },
     description: {
         fontSize: "16px!important",
-        margin:"80px 90px 40px 40px",
+        margin:"80px 50px 0 40px",
     },
     divider: {
         backgroundColor: "#ededed",
@@ -56,7 +56,11 @@ const useStyle = makeStyles(theme=>({
         padding: '20px'
     },
     modalTitle: {
-        flex:1
+        flex:1,
+        fontWeight: 500,
+        lineHeight: 1.5,
+        fontSize: '1.125rem',
+        color: 'rgba(0,0,0,.87)'
     },
     modalBody: {
         padding: '0 20px'
@@ -125,6 +129,9 @@ const useStyle = makeStyles(theme=>({
             margin: ".75em!important",
         },
     },
+    autoComplete: {
+        padding: '50px 50px 0 50px',
+    }
 
 }));
 

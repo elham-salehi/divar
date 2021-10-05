@@ -21,6 +21,7 @@ const Header = () => {
     const classes = useStyle();
     const theme = useTheme();
     const isTabletSize = useMediaQuery(theme.breakpoints.down(1100));
+    const isPhoneSize = useMediaQuery(theme.breakpoints.down(568));
     const {selectCityModalOpen} = useLayoutState();
     const {selectedCity} = useLayoutState();
     const layoutDispatch = useLayoutDispatch();
@@ -54,28 +55,31 @@ const Header = () => {
         headerClasses.push(classes.scrolled);
     };
     const showSelectedCity = () => {
-        if (selectedCity)
-            return (<Button
-                value={selectedCity}
-                className={classes.selectCityButton}
-                onClick={() => {
-                    toggleSelectCityModal(layoutDispatch)
-                }}
-            >
-                {selectedCity}
-                <LocationOnIcon/>
-            </Button>);
-        else
-            return (<Button
-                value={selectedCity}
-                className={classes.selectCityButton}
-                onClick={() => {
-                    toggleSelectCityModal(layoutDispatch)
-                }}
-            >
-                انتخاب شهر
-                <LocationOnIcon/>
-            </Button>);
+        if (!isPhoneSize)
+        {
+            if (selectedCity)
+                return (<Button
+                    value={selectedCity}
+                    className={classes.selectCityButton}
+                    onClick={() => {
+                        toggleSelectCityModal(layoutDispatch)
+                    }}
+                >
+                    {selectedCity}
+                    <LocationOnIcon/>
+                </Button>);
+            else
+                return (<Button
+                    value={selectedCity}
+                    className={classes.selectCityButton}
+                    onClick={() => {
+                        toggleSelectCityModal(layoutDispatch)
+                    }}
+                >
+                    انتخاب شهر
+                    <LocationOnIcon/>
+                </Button>);
+        }
     }
     useEffect(() => {
         setFilteredCities(

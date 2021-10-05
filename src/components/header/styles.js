@@ -31,6 +31,7 @@ const useStyle = makeStyles(theme => ({
         textAlign: "right",
         fontSize: ".875rem!important",
         fontWeight: "500!important",
+        whiteSpace: "nowrap"
 
     },
     expandMore: {
@@ -163,7 +164,8 @@ const useStyle = makeStyles(theme => ({
         marginRight: "8px"
     },
     rightHeader: {
-        flex: "50%"
+        flex: "50%",
+        flexWrap: "nowrap!important"
     },
     divider: {
         marginTop: "15px!important"

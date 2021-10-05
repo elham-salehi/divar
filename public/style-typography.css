@@ -1,11 +1,12 @@
-﻿@import url(shabnam.css); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
+﻿@import url(iransans.css); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
 body {
-  font-family: Shabnam, serif !important;
+  font-family: IRANSans, serif !important;
   font-weight: 400;
   font-size: 14px;
   direction: rtl;
   background-color: #ffffff;
   margin: 0;
+  overflow-x: hidden;
 }
 h1,
 h2,
@@ -15,7 +16,7 @@ h5,
 h6,
 input,
 textarea {
-  font-family: Shabnam, serif !important;
+  font-family: IRANSans, serif !important;
 }
 h1 {
   font-weight: bold;

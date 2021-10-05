@@ -10,6 +10,8 @@ function layoutReducer(state, action) {
     switch (action.type) {
         case "TOGGLE_DROP_DOWN_MENU":
             return {...state, dropDownOpen: !state.dropDownOpen};
+        case "CLOSE_DROP_DOWN_MENU":
+            return {...state, dropDownOpen: false};
         case "TOGGLE_SELECT_CITY_MODAL":
             return {...state, selectCityModalOpen: !state.selectCityModalOpen};
         case "REFRESH_SINGLE_POST":
@@ -18,6 +20,8 @@ function layoutReducer(state, action) {
             return {...state, cities: action.payload};
         case "SET_SELECTED_CITY":
             return {...state, selectedCity: action.payload};
+        case "SET_AUTOCOMPLETE_SELECTED_CITY":
+            return {...state, autoCompleteSelectedCity: action.payload};
         case "SET_CATEGORIES":
             return {...state, categories: action.payload};
         case "TOGGLE_LOGIN_MODAL":
@@ -41,6 +45,7 @@ function LayoutProvider({children}) {
         singlePostData: 'ّ',
         cities:[],
         selectedCity: '',
+        autoCompleteSelectedCity: '',
         categories:[],
         loginModalOpen: false,
         validationCodeModalOpen: false,
@@ -79,8 +84,10 @@ export {
     setCities,
     getAllCities,
     setSelectedCity,
+    setAutoCompleteSelectedCity,
     setCategories,
     toggleDropDown,
+    closeDropDown,
     toggleSelectCityModal,
     refreshSinglePost,
     toggleLoginModal,
@@ -94,6 +101,12 @@ export {
 function toggleDropDown(dispatch) {
     dispatch({
         type: "TOGGLE_DROP_DOWN_MENU"
+    })
+}
+
+function closeDropDown(dispatch) {
+    dispatch({
+        type: "CLOSE_DROP_DOWN_MENU"
     })
 }
 
@@ -120,6 +133,13 @@ function setCities(dispatch, data) {
 function setSelectedCity(dispatch, data) {
     dispatch({
         type: "SET_SELECTED_CITY",
+        payload: data
+    })
+}
+
+function setAutoCompleteSelectedCity(dispatch, data) {
+    dispatch({
+        type: "SET_AUTOCOMPLETE_SELECTED_CITY",
         payload: data
     })
 }

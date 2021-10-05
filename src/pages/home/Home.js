@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import { useHistory } from "react-router-dom";
 import useStyle from "./styles";
-import {Divider, Grid} from "@material-ui/core";
+import {Divider, Grid, useMediaQuery, useTheme} from "@material-ui/core";
 import {
     setSelectedCity,
     setIsLoading,
@@ -15,16 +16,21 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import Preloader from "../../components/preloader/Preloader";
+import CityAutoComplete from "../components/cityAutoComplete/CityAutoComplete";
 
 
 const Home = () => {
     const classes = useStyle();
+    const history = useHistory();
+    const theme= useTheme();
+    const isTabletSize= useMediaQuery(theme.breakpoints.down(1100));
     const {isLoading}= useLayoutState();
     const {cities}= useLayoutState();
+    const {selectedCity} = useLayoutState();
     const layoutDispatch = useLayoutDispatch();
     const[search,setSearch]= useState("");
     const [filteredCities, setFilteredCities] = useState([]);
-    const mostVisitedCities=["رشت","قم","کرمانشاه","تبریز","اهواز","اصفهان","شیراز","کرج","مشهد","تهران"];
+    const mostVisitedCities=["تهران","مشهد","کرج","شیراز","اصفهان","اهواز","تیریز","کرمانشاه","قم","رشت"];
 
     useEffect(()=>{
         setIsLoading(layoutDispatch,true);
@@ -43,11 +49,15 @@ const Home = () => {
         );
 
     }, [cities,search]);
+    useEffect(()=>{
+        history.push(`/${selectedCity}`);
+    },[selectedCity]);
     return (
         isLoading ? <Preloader/> :
         <Grid container direction={"row-reverse"} >
-            <Grid item container direction={"column"} className={classes.cityContainer} alignItems={"center"} justifyContent={"center"}>
-                     <Grid item container direction={"row"} className={classes.paper}>
+            {!isTabletSize &&
+                <Grid item container direction={"column"} className={classes.cityContainer} alignItems={"center"} justifyContent={"center"}>
+                    <Grid item container direction={"row"} className={classes.paper}>
                         <Grid container item direction={"row"} className={classes.modalHeader}>
                             <Grid item className={classes.modalTitle}>انتخاب شهر</Grid>
                         </Grid>
@@ -84,8 +94,13 @@ const Home = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-            </Grid>
+                </Grid>
+            }
             <Grid item container direction={"column"} className={classes.descriptionContainer} >
+                {isTabletSize &&
+                <Grid item className={classes.autoComplete}>
+                    <CityAutoComplete/>
+                </Grid>}
                 <Grid item className={classes.description}>
                     <p style={{lineHeight:"25px"}}>دیوار! پایگاه خرید و فروش بی‌واسطه</p>
                     <p style={{lineHeight:"25px"}}>اگه دنبال چیزی هستی، شهرت رو انتخاب کن و تو دسته‌بندی‌ها به دنبالش بگرد.</p>

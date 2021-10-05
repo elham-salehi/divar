@@ -12,13 +12,6 @@ const useStyle = makeStyles((theme) => ({
         backgroundColor: '#fff',
         zIndex:99
     },
-    container: {
-        position: 'absolute',
-        top: "50%",
-        left: "50%",
-        width: 'max-content',
-        height:'max-content',
-    },
     circles: {
         height:"50px",
         width: "50px",

@@ -20,17 +20,24 @@ const useStyle = makeStyles(theme => ({
        height:"136px",
 
    },
+    imageBlock: {
+        backgroundColor: "rgb(0 0 0 / 4%)",
+        color: "rgba(0,0,0,.32)",
+        width:"136px",
+        height:"136px",
+
+    },
     postRight:{
         padding:'0 10px',
         flex:1,
 
     },
     postDetails: {
-        width:300,
+        width:133,
         height:136,
         position:"relative",
         [theme.breakpoints.up("md")]:{
-            width:230,
+            width:168,
         },
         [theme.breakpoints.up("lg")]:{
             width:133,
@@ -46,11 +53,20 @@ const useStyle = makeStyles(theme => ({
     },
     postCaption:{
         position:"absolute",
-        bottom:-10,
+        bottom: -10,
         color:theme.palette.text.hint,
     },
+    timeTypography:{
+        fontSize:".75rem!important",
+        flexWrap: "nowrap",
+        whiteSpace: "nowrap",
+    },
     captionTypography:{
-      fontSize:"13px!important"
+      fontSize:".75rem!important",
+      flexWrap: "nowrap",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+      overflow: "hidden"
     },
 
 

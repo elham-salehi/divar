@@ -16,15 +16,12 @@ import {
     setIsLoading, setCategories,
 } from "../../context/LayoutContext";
 import {getAllCategoriesApi} from "../../api/api-categories";
-import {useAutocomplete} from "@material-ui/lab";
-import InputBase from "@material-ui/core/InputBase";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import CityAutoComplete from "../components/cityAutoComplete/CityAutoComplete";
 
 const NewPost = () => {
 
     const classes = useStyle();
     const layoutDispatch= useLayoutDispatch();
-    const {cities}= useLayoutState();
     const inputRefs = useRef([]);
     const inputImg = useRef([]);
     const {categories}= useLayoutState();
@@ -33,34 +30,12 @@ const NewPost = () => {
     const [fileUrls, setFileUrls] = useState([]);
     const filesLength = files.length;
     const {selectedCity} = useLayoutState();
-    const [city,setCity] = useState(selectedCity);
-    const {
-        getRootProps,
-        getInputProps,
-        getListboxProps,
-        getOptionProps,
-        groupedOptions,
-    } = useAutocomplete({
-        id: 'cities-autocomplete',
-        options: cities,
-        defaultValue: {name: selectedCity},
-        onChange:  (_,option) => {
-            setCity(option.name)
-        },
-        getOptionSelected:(option, value) =>  option.name === value.name  ,
-        getOptionLabel: (option) => option.name,
-    });
+    const {autoCompleteSelectedCity} = useLayoutState();
 
 
 
     useEffect(() => {
         setIsLoading(layoutDispatch,true);
-
-        if(cities.length===0) {
-            getAllCities(layoutDispatch, (done) => {
-
-            });
-        }
         getAllCategoriesApi((isOk, data) => {
             if (!isOk)
                 alert(data.message);
@@ -78,7 +53,11 @@ const NewPost = () => {
             // add or remove refs
             inputImg.current = Array(filesLength).fill().map((_, i) => files[i] || React.createRef());
         }
-    }, [layoutDispatch,cities.length,filesLength,files]);
+    }, [layoutDispatch,filesLength,files]);
+
+    useEffect(() => {
+        isTehran()
+    },[autoCompleteSelectedCity])
 
     const sendPost = () => {
         setIsLoading(layoutDispatch,true)
@@ -95,7 +74,7 @@ const NewPost = () => {
 
         const images = inputImg.current.map(image => image.file);
         const cat = category;
-        const cit = city;
+        const cit = inputRefs.current[3].current.value;
 
         formData.append("title", title);
         formData.append("description", desc);
@@ -148,7 +127,14 @@ const NewPost = () => {
 
 
     const isTehran = () => {
-        if (city === "تهران")
+        if ( (!autoCompleteSelectedCity && selectedCity === "تهران" ) || (autoCompleteSelectedCity === selectedCity && selectedCity === "تهران"))
+            return (<div>
+                    <Typography className={classes.label}>محدوده آگهی</Typography>
+                    <input className={classes.input} ref={inputRefs.current[4]}/>
+                </div>
+            )
+        else
+        if (autoCompleteSelectedCity !== selectedCity && autoCompleteSelectedCity === "تهران")
             return (<div>
                     <Typography className={classes.label}>محدوده آگهی</Typography>
                     <input className={classes.input} ref={inputRefs.current[4]}/>
@@ -170,23 +156,7 @@ const NewPost = () => {
         <Grid container direction={"column"} className={classes.newPost} justifyContent={"space-between"}>
             <h1 className={classes.title}>ثبت آگهی</h1>
             <Typography className={classes.label}>شهر</Typography>
-            <Grid item className={classes.cityAutoComplete}>
-                <div {...getRootProps()} >
-                    <InputBase inputComponent={"input"} inputRef={inputRefs.current[3]}  inputValue={city}
-                               className={classes.selectCityInput} classes={{focused:classes.inputBaseFocused}} {...getInputProps()}
-                               placeholder={"انتخاب شهر..."}
-                               startAdornment={<ArrowDropDownIcon/>}
-                    />
-                </div>
-                {groupedOptions.length > 0 ? (
-                    <ul className={classes.listbox} {...getListboxProps()}>
-                        {groupedOptions.map((option, index) => (
-                            <li {...getOptionProps({ option, index })}>{option.name}</li>
-                        ))}
-                    </ul>
-                ) : null}
-            </Grid>
-
+            <CityAutoComplete props={inputRefs.current[3]}/>
             {isTehran()}
 
             <Typography className={classes.label}>عکس آگهی</Typography>
