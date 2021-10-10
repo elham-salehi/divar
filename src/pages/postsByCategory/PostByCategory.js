@@ -10,7 +10,7 @@ const PostByCategory = (props) => {
     return (
         <Grid item container direction={"row"}>
             <Sidebar/>
-            <Grid className={classes.main}>
+            <Grid item container direction={"column"} className={classes.main}>
                 <Grid className={classes.browser}>
                     <BrowsHeader categoryTitle={props.match.params.category}/>
                     <Divider orientation={"horizontal"} className={classes.divider}/>

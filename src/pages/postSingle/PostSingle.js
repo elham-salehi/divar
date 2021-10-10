@@ -81,7 +81,7 @@ const PostSingle = (props) => {
               </Grid>
               <Grid item container direction={"column"} className={classes.postNote}>
                   <Grid item className={classes.postImage}>
-                      <img src={`https://divar-api.herokuapp.com/uploads/${post.images}`} alt={post.title} style={{width:'100%'}} />
+                      <img src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${post.images}`} alt={post.title} style={{width:'100%'}} />
                   </Grid>
                   <Grid item direction={"row"} className={classes.note}>
                       <TextareaAutosize className={classes.noteArea}    placeholder={"یادداشت شما..."}/>

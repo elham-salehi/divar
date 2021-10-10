@@ -321,7 +321,7 @@ const Chat = (props) => {
                                 <div className={classNames(classes.conversationItem,
                                     conversation._id === currentConversation._id && classes.conversationItemActive)}>
                                     <div className={classes.conversationItemImage}>
-                                        <img src={`https://divar-api.herokuapp.com/uploads/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
+                                        <img src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
                                     </div>
                                     {unreadMessages(conversation.hasUnreadMessages)}
                                     <div className={classes.conversationItemTitle}>{showConversationTitle(conversation)}</div>

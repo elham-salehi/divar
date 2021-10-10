@@ -36,7 +36,7 @@ const MyPostItem = ({data}) => {
             <Link to={{pathname:`/my-divar/my-posts/${data._id}`,data:data}} >
                 <Grid  container direction={"row"} className={classes.myPostItem}>
                     <Grid item container direction={"column"} alignItems={"center"} className={classes.myPostImg}  >
-                        <img className={classes.myPostThumbnail} src={`https://divar-api.herokuapp.com/uploads/${data.images[0]}`} alt={data.title}/>
+                        <img className={classes.myPostThumbnail} src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${data.images[0]}`} alt={data.title}/>
                     </Grid>
                     <Grid item container  direction={"row"} alignItems={"stretch"} className={classes.myPostInfo} >
                         <Grid item container direction={"column"} className={classes.myPostInfoCol} justifyContent={"space-between"} alignItems={"stretch"}>

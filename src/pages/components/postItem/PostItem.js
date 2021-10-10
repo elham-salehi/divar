@@ -10,7 +10,7 @@ const PostItem = ({data}) => {
 
     const hasImage = () => {
         if(data.images.length > 0)
-            return <img className={classes.postThumbnail} src={`https://divar-api.herokuapp.com/uploads/${data.images[0]}`} alt={data.title}/>
+            return <img className={classes.postThumbnail} src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${data.images[0]}`} alt={data.title}/>
         else
             return <Grid container direction={"column"} className={classes.imageBlock} alignItems={"center"} justifyContent={"center"}>
                 <NoPhotographyIcon/>
