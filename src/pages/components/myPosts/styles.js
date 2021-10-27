@@ -4,7 +4,19 @@ const useStyle = makeStyles(theme => ({
             backgroundColor: '#fff',
             width:"100%",
             lineHeight:1.5,
-            textAlign: "center"
+            padding: "1rem",
+            textAlign: "center",
+            marginRight: "auto",
+            marginLeft: "auto",
+            [theme.breakpoints.down("md")]:{
+                maxWidth: "100%"
+            },
+            [theme.breakpoints.between("md","lg")]:{
+                maxWidth: "70%"
+            },
+            [theme.breakpoints.up("lg")]:{
+                maxWidth: "50%"
+            },
         },
     noPost:{
         padding: "1.75rem 0",

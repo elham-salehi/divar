@@ -9,7 +9,6 @@ import ImageIcon from '@material-ui/icons/Image';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import {newPostRequestApi} from "../../api/api-posts";
 import {
-    getAllCities,
     updatePostsByCity,
     useLayoutState,
     useLayoutDispatch,
@@ -31,7 +30,6 @@ const NewPost = () => {
     const filesLength = files.length;
     const {selectedCity} = useLayoutState();
     const {autoCompleteSelectedCity} = useLayoutState();
-
 
 
     useEffect(() => {
@@ -128,7 +126,7 @@ const NewPost = () => {
 
     const isTehran = () => {
         if ( (!autoCompleteSelectedCity && selectedCity === "تهران" ) || (autoCompleteSelectedCity === selectedCity && selectedCity === "تهران"))
-            return (<div>
+            return (<div style={{width:"100%"}}>
                     <Typography className={classes.label}>محدوده آگهی</Typography>
                     <input className={classes.input} ref={inputRefs.current[4]}/>
                 </div>
@@ -174,7 +172,7 @@ const NewPost = () => {
                 </Grid>
             </Grid>
             <Typography className={classes.label}>دسته بندی</Typography>
-            <FormControl className={classes.margin} style={{width: '100%'}}>
+            <FormControl>
                 <NativeSelect
                     id="selectCategory"
                     variant={"standard"}

@@ -17,26 +17,32 @@ const useStyle = makeStyles(theme => ({
     },
 
     categoriesTitle: {
-        padding: 20,
+        padding: "1.75rem 0",
         color: 'rgba(0,0,0,0.87)'
     },
     catStyle: {
+        padding: "6px 0",
+        lineHeight: 2,
+        transition: "color .36s ease",
+        cursor: "pointer",
         color:"rgba(0,0,0,.56)!important",
-        padding:12,
         whiteSpace: "nowrap",
         width: '100%',
-        textAlign: "right"
+        textAlign: "right",
+        "&:hover": {
+            color: "rgb(0 0 0 / 87%)!important"
+        }
     },
     catName: {
-        fontSize:"14px!important",
+        fontSize:"0.875!important",
         marginRight: 7
     },
     catIcon: {
-        fontSize:"7px!important"
+        fontSize:"0.875rem!important"
     },
     divider: {
      height:2,
-    backgroundColor:"rgba(0,0,0,.12)",
+     backgroundColor:"rgba(0,0,0,.12)",
     }
 
 }));

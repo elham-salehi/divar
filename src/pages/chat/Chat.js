@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Link} from "react-router-dom";
 import SocketIOClient from 'socket.io-client';
 import useStyle from "./styles";
 import Grid from "@material-ui/core/Grid";
@@ -7,10 +8,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CallIcon from '@material-ui/icons/Call';
 import SendIcon from '@material-ui/icons/Send';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import {ButtonBase, IconButton} from "@material-ui/core";
+import {ButtonBase, IconButton, useMediaQuery, useTheme} from "@material-ui/core";
 import classNames from 'classnames';
 import CheckIcon from '@material-ui/icons/Check';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
+import {useLayoutState} from "../../context/LayoutContext";
 
 
 const Chat = (props) => {
@@ -32,6 +35,9 @@ const Chat = (props) => {
     const [oldMessages,setOldMessages] = React.useState({});
     const [hasUnreadConversation,setHasUnreadConversation] = React.useState(null);
     const localUserId = localStorage.getItem("id");
+    const theme= useTheme();
+    const isMobileSize= useMediaQuery(theme.breakpoints.down(768));
+    const {selectedCity} = useLayoutState();
 
     useEffect(() => {
             socket.current.emit("joinUser",  {
@@ -198,7 +204,6 @@ const Chat = (props) => {
         let paramsId= conversation.post._id;
         if(conversation.contact._id === localUserId)
              paramsId = conversation.user._id;
-
         window.history.replaceState(null, "New Page Title", `/chat/${paramsId}`)
            // history.push({
            //     pathname:`/chat/${postId}`
@@ -307,62 +312,84 @@ const Chat = (props) => {
          else
              return conversation.post.title
     }
+    const showConversations = () => {
+      if(!isMobileSize || (isMobileSize  && window.location.pathname.startsWith("/chat") && window.location.pathname.length <= 6))
+          return <Grid item container direction={"column"} className={classes.conversationList} >
+              <Grid item container direction={"row"} className={classes.conversationListHeader} justifyContent={"center"} alignItems={"center"}>
+                  <Grid item container className={classes.chatSetting} justifyContent={"center"}><SettingsIcon/></Grid>
+                  <Grid item container className={classes.chatTitle}>چت دیوار</Grid>
+                  {isMobileSize && <Link to={ "/" + selectedCity}>
+                      <Grid item >
+                          <img width={48} height={48} className={classes.logo} src={"/images/logo.png"} alt={"divar logo"}/>
+                      </Grid>
+                  </Link>}
+              </Grid>
+              <Grid item container direction={"column"} className={classes.conversationListBody} ref={scrollableConversations} justifyContent={"flex-start"}>
+                  <Grid item container direction={"column"}>
+                      {conversations.map((conversation) => {
+                          return  <ButtonBase onClick={() =>{handleShowConversation(conversation)}} style={{width:"100%"}}>
+                              <div className={classNames(classes.conversationItem,
+                                  conversation._id === currentConversation._id && classes.conversationItemActive)}>
+                                  <div className={classes.conversationItemImage}>
+                                      <img src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
+                                  </div>
+                                  {unreadMessages(conversation.hasUnreadMessages)}
+                                  <div className={classes.conversationItemTitle}>{showConversationTitle(conversation)}</div>
+                                  <div className={classes.conversationItemContact}>{conversation.contact.phoneNumber}</div>
+                                  <div className={classes.conversationItemSummary}></div>
+                              </div>
+                          </ButtonBase>
+                      })}
+                  </Grid>
+              </Grid>
+              <Grid item container direction={"row"} className={classes.conversationListFooter} justifyContent={"center"}></Grid>
+          </Grid>
+
+    }
+    const showMessagesContainer = () => {
+        if(!isMobileSize || (isMobileSize  && window.location.pathname.startsWith("/chat") && window.location.pathname.length > 6))
+          return  <Grid item container direction={"column"} className={classes.messagesContainer}>
+              <Grid item container direction={"row"} className={classes.messagesHeader} justifyContent={"center"} alignItems={"center"}>
+                  {isMobileSize && <Grid item container style={{width:35}} justifyContent={"flex-end"}><CallIcon/></Grid>}
+                  {isMobileSize && <Grid item container style={{width:35}} justifyContent={"flex-end"} ><MoreVertIcon/></Grid>}
+                  <Grid item container direction={"column"} className={classes.conversationTitle} justifyContent={"center"}>
+                      <Grid item container style={{flex:1}} justifyContent={"center"} >{postTitle}</Grid>
+                      {getStatus()}
+                  </Grid>
+                  {!isMobileSize && <Grid item container style={{width:35}} justifyContent={"flex-end"}><CallIcon/></Grid>}
+                  {!isMobileSize && <Grid item container style={{width:35}} justifyContent={"flex-end"} ><MoreVertIcon/></Grid>}
+                  {isMobileSize && <Grid item container style={{width:35}} justifyContent={"flex-end"} >
+                      <Link to={"/chat"}>
+                          <ArrowBackIos/>
+                      </Link>
+                  </Grid>}
+              </Grid>
+              <div className={classes.messagesBody} ref={scrollableMessages}>
+              {messages.map((message) => {
+                  return <div className={classes.messageContainer}>
+                      <div className={classNames(classes.message,
+                          (localUserId=== message.sender) ? classes.sendMessage : classes.receivedMessage)}>
+                          <div className={classes.messageText}>
+                              {message.text}
+                          </div>
+                          <div className={classes.messageTime}>
+                              {isSeen(message.sender,message.seen)}
+                              <span>{message.time.split("T")[1].split(".")[0]}</span>
+                          </div>
+                      </div>
+                  </div>
+              })
+              }
+          </div>
+              {showMessageInput(currentConversation)}
+          </Grid>
+    }
     return (
         <Grid container className={classes.chat} justifyContent={"center"}>
-            <Grid item container direction={"column"} className={classes.conversationList} >
-                <Grid item container direction={"row"} className={classes.conversationListHeader} justifyContent={"center"}>
-                    <Grid item container className={classes.chatSetting}><SettingsIcon/></Grid>
-                    <Grid item container className={classes.chatTitle}>چت دیوار</Grid>
-                </Grid>
-                <Grid item container direction={"column"} className={classes.conversationListBody} ref={scrollableConversations} justifyContent={"flex-start"}>
-                    <Grid item container direction={"column"}>
-                        {conversations.map((conversation) => {
-                            return  <ButtonBase onClick={() =>{handleShowConversation(conversation)}} style={{width:"100%"}}>
-                                <div className={classNames(classes.conversationItem,
-                                    conversation._id === currentConversation._id && classes.conversationItemActive)}>
-                                    <div className={classes.conversationItemImage}>
-                                        <img src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
-                                    </div>
-                                    {unreadMessages(conversation.hasUnreadMessages)}
-                                    <div className={classes.conversationItemTitle}>{showConversationTitle(conversation)}</div>
-                                    <div className={classes.conversationItemContact}>{conversation.contact.phoneNumber}</div>
-                                    <div className={classes.conversationItemSummary}></div>
-                                </div>
-                            </ButtonBase>
-                        })}
-                    </Grid>
-                </Grid>
-                <Grid item container direction={"row"} className={classes.conversationListFooter} justifyContent={"center"}></Grid>
-            </Grid>
-            <Grid item container direction={"column"} className={classes.messagesContainer}>
-                <Grid item container direction={"row"} className={classes.messagesHeader} justifyContent={"center"} alignItems={"center"}>
-                   <Grid item container direction={"column"} style={{flex:1}} justifyContent={"center"}>
-                       <Grid item container style={{flex:1}} justifyContent={"center"} >{postTitle}</Grid>
-                       {getStatus()}
-                   </Grid>
-                    <Grid item container style={{width:35}} justifyContent={"flex-end"}><CallIcon/></Grid>
-                    <Grid item container style={{width:35}} justifyContent={"flex-end"} ><MoreVertIcon/></Grid>
-                </Grid>
-                <div className={classes.messagesBody} ref={scrollableMessages}>
-                {messages.map((message) => {
-                    return <div className={classes.messageContainer}>
-                                <div className={classNames(classes.message,
-                                    (localUserId=== message.sender) ? classes.sendMessage : classes.receivedMessage)}>
-                                    <div className={classes.messageText}>
-                                        {message.text}
-                                    </div>
-                                    <div className={classes.messageTime}>
-                                        {isSeen(message.sender,message.seen)}
-                                        <span>{message.time.split("T")[1].split(".")[0]}</span>
-                                    </div>
-                                </div>
-                            </div>
-                })
-                }
-                </div>
-                {showMessageInput(currentConversation)}
-            </Grid>
+            {showConversations()}
+            {showMessagesContainer()}
         </Grid>
+
     );
 };
 

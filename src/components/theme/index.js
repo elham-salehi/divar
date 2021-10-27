@@ -14,6 +14,10 @@ const Theme = createTheme({
         MuiButton: {
             root: {
                 fontFamily: "IRANSans!important",
+            },
+            startIcon: {
+                marginLeft: "4px",
+                marginRight: "-8px"
             }
         },
         MuiTypography: {

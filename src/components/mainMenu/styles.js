@@ -9,7 +9,13 @@ const useStyle = makeStyles(theme=>({
         fontSize: ".75rem",
         fontWeight:500,
         color: 'rgb(0 0 0 / 56%)',
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        "&:hover": {
+            color: "rgb(0 0 0 / 87%)"
+        },
+        "&:focus": {
+            color: "rgb(0 0 0 / 87%)"
+        }
     },
 
 }));

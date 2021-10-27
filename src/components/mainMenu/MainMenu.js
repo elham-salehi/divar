@@ -22,22 +22,22 @@ const MainMenu = () => {
         <Grid item container direction={"row-reverse"} alignItems={"center"} className={classes.mainMenu}>
             {showLogout()}
             <Grid item>
-                <Button><Link to={"/"} className={classes.navItem}>تماس با ما</Link></Button>
+                <Link to={"/"} ><Button className={classes.navItem}>تماس با ما</Button></Link>
             </Grid>
             <Grid item>
-                <Button><Link to={"/"} className={classes.navItem}>پشتیبانی و قوانین</Link></Button>
+                <Link to={"/"} ><Button className={classes.navItem}>پشتیبانی و قوانین</Button></Link>
             </Grid>
             <Grid item>
-                <Button><Link to={"/"} className={classes.navItem}>بلاگ</Link></Button>
+                <Link to={"/"} ><Button className={classes.navItem}>بلاگ</Button></Link>
             </Grid>
             <Grid item>
-                <Button><Link to={"/"} className={classes.navItem}>درباره ما</Link></Button>
+                <Link to={"/"} ><Button className={classes.navItem}>درباره ما</Button></Link>
             </Grid>
             <Grid item>
-                <Button><Link to={"/chat"} className={classes.navItem}>چت</Link></Button>
+                <Link to={"/chat"} ><Button className={classes.navItem}>چت</Button></Link>
             </Grid>
             <Grid item>
-                <Button><Link to={"/my-divar/my-posts"} className={classes.navItem}>دیوار من</Link></Button>
+                <Link to={"/my-divar/my-posts"} ><Button className={classes.navItem}>دیوار من</Button></Link>
             </Grid>
 
         </Grid>

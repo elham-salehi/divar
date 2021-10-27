@@ -3,11 +3,19 @@ const useStyle = makeStyles(theme => ({
     root: {
         backgroundColor: '#fff',
         width:"100%",
-        maxWidth:"700px!important",
         lineHeight:1.5,
-        marginLeft: "auto",
+        padding: "1rem",
         marginRight: "auto",
-        padding: "1em 0",
+        marginLeft: "auto",
+        [theme.breakpoints.down("md")]:{
+            maxWidth: "100%"
+        },
+        [theme.breakpoints.between("md","lg")]:{
+            maxWidth: "70%"
+        },
+        [theme.breakpoints.up("lg")]:{
+            maxWidth: "50%"
+        },
 
     },
 
@@ -34,6 +42,7 @@ const useStyle = makeStyles(theme => ({
         minHeight: '50vh',
         maxWidth: "480px",
         overflowY: 'hidden',
+        flexWrap: "nowrap!important",
         borderRadius: '3px!important',
         color: "#424242",
         fontSize:"1.1rem!important",
@@ -41,7 +50,11 @@ const useStyle = makeStyles(theme => ({
 
         '&:focus': {
             outlineStyle: "none"
-        }
+        },
+        [theme.breakpoints.down("sm")]:{
+            height: "100%",
+            width: "100%"
+        },
     },
     modalHeader: {
         fontSize:"1.2rem!important",
@@ -57,18 +70,20 @@ const useStyle = makeStyles(theme => ({
         marginBottom: ".5rem",
     },
     modalContent: {
-        height: "32vh",
+        height: "33vh",
         overflowY: "scroll",
         '&::-webkit-scrollbar': {
             width: 14,
             height:14
-
         },
         '&::-webkit-scrollbar-thumb': {
             backgroundColor: 'rgba(0,0,0,.12)',
             borderRadius: 12,
             border: "4px solid hsla(0,0%,100%,.98)",
             backgroundClip: "padding-box"
+        },
+        [theme.breakpoints.down("sm")]:{
+            height: "100%"
         },
 
     },

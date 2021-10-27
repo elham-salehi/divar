@@ -12,6 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import useStyle from "./styles";
 import {loginApi, sendVerifyCodeApi} from "../../../api/api-users";
 import MyDivar from "../../myDivar/MyDivar";
+import {toast} from "react-toastify";
 
 const Auth = () => {
     const classes= useStyle();
@@ -36,16 +37,27 @@ const Auth = () => {
         toggleValidationCodeModal(layoutDispatch);
         toggleLoginModal(layoutDispatch)
     }
+    const validatePhoneNumber = (inputText) => {
+        const phoneNumber = /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/;
+        if(inputText.match(phoneNumber)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     const sendVerifyCode = () => {
         const phoneNumber = inputPhoneNumber.current.value;
+       if(!validatePhoneNumber(phoneNumber))
+           return toast.error(".لطفا یک شماره موبایل معتبر وارد نمایید");
         const user = {
             "phoneNumber" : phoneNumber
         }
         sendVerifyCodeApi(user,(isOk,data) => {
             if(!isOk)
-                return alert(data);
+                return toast.error(".لطفا یک شماره موبایل معتبر وارد نمایید");
             toggleValidationCodeModal(layoutDispatch);
-            return alert("کد ارسال شد!");
+            return toast.success(".کد ارسال شد");
         });
     }
     const login = () => {
@@ -55,21 +67,47 @@ const Auth = () => {
         };
         loginApi(user, (isOk,data) => {
             if (!isOk)
-                return alert("cant login!");
+                return toast.error(".کد تایید معتبر نیست");
             localStorage.setItem("phoneNumber",data.data["phoneNumber"]);
             localStorage.setItem("id",data.data["_id"]);
             localStorage.setItem("x-auth-token",data.headers["x-auth-token"]);
             history.push(location.state.referrer)
-            return alert("done");
+            return toast.success(".شما با موفقیت وارد شدید");
+            toggleValidationCodeModal(layoutDispatch);
+            toggleLoginModal(layoutDispatch);
 
         });
-        toggleValidationCodeModal(layoutDispatch);
-        toggleLoginModal(layoutDispatch);
 
     };
+    const handleKeyDown = (event,submitFunc) => {
+        if (event.key === 'Enter') {
+            submitFunc();
+            event.preventDefault();
+        }
+    };
+    const handleOnChangePhone  = (event) => {
+        if (inputPhoneNumber.current.value.length === 11) {
+            sendVerifyCode();
+            event.preventDefault();
+        }
+    };
+    const handleOnChangeCode  = (event) => {
+        if (inputValidationCode.current.value.length === 6) {
+            login();
+            event.preventDefault();
+        }
+    };
+    const showModalText = () => {
+        if(inputPhoneNumber.current)
+        {
+            return <Grid item className={classes.modalBodyText}>
+                <p>کد پیامک‌شده به شمارۀ {inputPhoneNumber.current.value} را وارد کنید.</p>
+            </Grid>
+        }
+    }
 
     return (
-        <div>
+        <div className={classes.root}>
             <MyDivar value={value}/>
             <Grid direction={"column"} className={classes.loginMessage} justifyContent={"center"} alignItems={"center"}>
                 <Typography>برای مشاهده و مدیریت آگهی&zwnj;ها، وارد حساب کاربری خود شوید.</Typography>
@@ -99,7 +137,12 @@ const Auth = () => {
                                     <p>برای ادامهٔ کار لازم است که وارد حساب خود شوید. لطفاً شمارهٔ&zwnj; موبایل خود را وارد کنید. کد تأیید به این شماره پیامک خواهد شد.</p>
                                 </Grid>
                                 <Grid item className={classes.phoneNumber} >
-                                    <input type={"tel"} inputMode={"numeric"} ref={inputPhoneNumber} placeholder={"شمارهٔ موبایل"} className={classes.phoneInput}/>
+                                    <input type={"tel"} inputMode={"numeric"}
+                                           ref={inputPhoneNumber} placeholder={"شمارهٔ موبایل"}
+                                           className={classes.phoneInput}
+                                           onKeyDown={(event) => {handleKeyDown(event,sendVerifyCode)}}
+                                           onChange={(event) => {handleOnChangePhone(event,sendVerifyCode)}}
+                                    />
                                     <p className={classes.preNumber}>+۹۸</p>
                                 </Grid>
                             </Grid>
@@ -131,11 +174,12 @@ const Auth = () => {
                                 <Grid item className={classes.modalBodyTitle}>
                                     <p>کد تأیید را وارد کنید</p>
                                 </Grid>
-                                <Grid item className={classes.modalBodyText}>
-                                    <p>کد پیامک‌شده به شمارۀ «000000» را وارد کنید.</p>
-                                </Grid>
+                                {showModalText()}
                                 <Grid item className={classes.phoneNumber} style={{paddingTop: '1rem'}}>
-                                    <input type={"number"} inputMode={"numeric"} ref={inputValidationCode} placeholder={"کد تأیید ۶ رقمی"} className={classes.phoneInput}/>
+                                    <input inputMode={"numeric"} ref={inputValidationCode} placeholder={"کد تأیید ۶ رقمی"}
+                                           onKeyDown={(event) => {handleKeyDown(event,login)}}
+                                           onChange={(event) => {handleOnChangeCode(event,sendVerifyCode)}}
+                                           className={classes.phoneInput}/>
                                 </Grid>
                             </Grid>
                         </Grid>

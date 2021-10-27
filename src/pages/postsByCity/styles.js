@@ -8,7 +8,7 @@ const useStyle = makeStyles({
     },
     main: {
         position: 'relative',
-        padding:"0 0 0 1.75rem",
+        padding:"1.75rem 0 0 1.75rem",
         marginRight: "30px",
         flex:7
     },

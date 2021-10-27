@@ -14,7 +14,7 @@ const Categories = ({data}) => {
     const classes = useStyle();
     return (
 
-            <ButtonBase style={{width:"100%",height:"70px"}}>
+            <ButtonBase style={{width:"100%"}}>
                     <Link to={{pathname:`/categories/${data.name}`,data:data}} className={classes.catStyle}>
                            <Grid direction={"row"} container alignItems={"center"} >
                                <IconComponents tag={data.id}/>

@@ -2,14 +2,25 @@ import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme => ({
     newPost: {
         backgroundColor: '#fff',
-        width:"100%",
-        maxWidth:"512px!important",
         marginLeft: "auto",
         marginRight: "auto",
-        paddingTop: "2rem",
+        padding: "2rem 1rem 2rem",
+        [theme.breakpoints.down("sm")]:{
+           maxWidth: "100%"
+        },
+        [theme.breakpoints.between("sm","md")]:{
+            maxWidth: "80%"
+        },
+        [theme.breakpoints.between("md","lg")]:{
+            maxWidth: "60%"
+        },
+        [theme.breakpoints.up("lg")]:{
+            maxWidth: "40%"
+        },
 
     },
     title: {
+        width:"100%",
         fontSize: "1.25rem",
         color: "#303030",
         padding: "1rem 0",
@@ -76,15 +87,13 @@ const useStyle = makeStyles(theme => ({
         borderRadius: "50%"
     },
     label:{
+        width:"100%",
         color: "rgba(0,0,0,.87)",
         fontSize: "1rem",
         lineHeight: 2,
         paddingTop: "1rem",
         paddingBottom: ".5rem",
         fontWeight: 500
-    },
-    margin: {
-        margin: theme.spacing(1),
     },
     input: {
         marginTop: ".625rem",
@@ -143,6 +152,7 @@ const useStyle = makeStyles(theme => ({
 
     },
     helpMessage: {
+        width:"100%",
         color: "rgba(0,0,0,.56)",
         fontSize: ".875rem",
         marginTop: ".625rem",

@@ -21,7 +21,8 @@ const useStyle = makeStyles(theme=>({
     },
     description: {
         fontSize: "16px!important",
-        margin:"80px 50px 0 40px",
+        margin:"80px 80px 0 25px",
+        color: "rgb(0 0 0 / 87%)"
     },
     divider: {
         backgroundColor: "#ededed",

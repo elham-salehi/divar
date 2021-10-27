@@ -3,7 +3,9 @@ import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme => ({
     
     header: {
-        position: 'relative',
+        position: '-webkit-sticky',
+        position: 'sticky',
+        top: 0,
         backgroundColor: '#fff',
         padding: "0 15px 0 15px",
         width: '100%',
@@ -13,17 +15,13 @@ const useStyle = makeStyles(theme => ({
         zIndex: 999
 
     },
-    scrolled: {
-        position: "fixed",
-        width: '100%',
-        backgroundColor: '#fff',
-        zIndex: 9999
-    },
+
     logo: {
-        width: '48px'
+        width: 48,
+        height: 48,
+        marginLeft: '8px',
     },
     selectCityButton: {
-        marginRight: "15px!important",
         width: 120,
         color: "rgb(0 0 0 / 56%)!important",
         border: "1px solid transparent!important",
@@ -31,7 +29,13 @@ const useStyle = makeStyles(theme => ({
         textAlign: "right",
         fontSize: ".875rem!important",
         fontWeight: "500!important",
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        '&:hover': {
+            color: "rgb(0 0 0 / 87%)!important"
+        },
+        '&:focus': {
+            color: "rgb(0 0 0 / 87%)!important"
+        }
 
     },
     expandMore: {
@@ -51,8 +55,9 @@ const useStyle = makeStyles(theme => ({
 
     },
     paper: {
-        minHeight:"100vh",
+        height:"100vh",
         overflowY:"scroll",
+        flexWrap: "nowrap!important",
         '&::-webkit-scrollbar': {
             display: 'block',
             width: 14,
@@ -113,7 +118,6 @@ const useStyle = makeStyles(theme => ({
     cities: {
         margin: "20px 0 50px!important",
         width: "100%",
-
     },
     cityButton: {
         backgroundColor: "#fff!important",
@@ -168,8 +172,10 @@ const useStyle = makeStyles(theme => ({
         flexWrap: "nowrap!important"
     },
     divider: {
-        marginTop: "15px!important"
-    }
+        margin: "0 8px!important",
+        height: "1.5rem!important",
+        width: "1px!important"
+    },
 }));
 
 export default useStyle;

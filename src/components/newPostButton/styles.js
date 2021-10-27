@@ -2,13 +2,13 @@ import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme=>({
 
     newPost: {
-        margin: "0 10px!important",
-        flex:"10%",
+        marginLeft: "10px!important",
+        flex:"8%",
     },
     newPostBtn: {
         whiteSpace:"nowrap",
         fontWeight:"500!important",
-        fontSize: "18px!important",
+        fontSize: ".875rem!important",
         boxShadow: "none!important",
     }
 }));

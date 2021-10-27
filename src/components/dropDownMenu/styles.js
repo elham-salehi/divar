@@ -10,9 +10,6 @@ const useStyle = makeStyles(theme=>({
         boxShadow: "none!important",
         margin: "0 10px!important",
     },
-    menuIcon: {
-
-    },
     dropdownMenu: {
         position: "relative",
     },
@@ -44,8 +41,15 @@ const useStyle = makeStyles(theme=>({
     },
    dropdownLink: {
         width: '100%!important',
+       color: 'rgb(0 0 0 / 56%)',
        '& span': {
             justifyContent: 'right!important'
+       },
+       "&:hover": {
+           color: "rgb(0 0 0 / 87%)"
+       },
+       "&:focus": {
+           color: "rgb(0 0 0 / 87%)"
        }
  }
 }));

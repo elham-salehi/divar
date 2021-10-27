@@ -1,24 +1,37 @@
 import {makeStyles} from "@material-ui/styles";
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
     chat: {
        border: "1px solid rgba(34,36,38,0.15)",
        width: "80%",
        margin: "16px 10%",
-       height: "100%"
+       height: "calc(100vh - 97px)",
+       overflow: "hidden",
+       flexWrap: "nowrap",
+        [theme.breakpoints.down(768)]:{
+            width: "100%",
+            height: "100vh",
+            margin: 0,
+            border: "none"
+        },
     },
     conversationList: {
-        width:340,
-        flex:1,
-        height: 'calc( 100vh - 98px)',
+        width:'33.3%',
+        minWidth: '33.3%',
+        height: '100%',
         borderLeft: "1px solid rgba(34,36,38,0.15)",
+        [theme.breakpoints.down(768)]:{
+           width: "100%",
+        },
     },
     messagesContainer: {
-        width:737,
-        height: 'calc( 100vh - 98px)',
+        width:"66.6%",
+        height: '100%',
+        [theme.breakpoints.down(768)]:{
+            width: "100%",
+        },
     },
     conversationListHeader : {
         color: "#c00c1a",
-        padding: "20px 20px 16px 20px !important",
         fontSize: "16px !important",
         fontWeight: "bold !important",
         lineHeight: "normal !important",
@@ -28,17 +41,36 @@ const useStyle = makeStyles({
         flexWrap: "nowrap"
     },
     chatSetting : {
-        width:30
+        flex: '12%'
     },
     chatTitle : {
-        flex:1
+        flex: '88%'
+    },
+    logo: {
+        width: 48,
+        height: 48,
+        marginLeft: '8px',
     },
     conversationListBody: {
         overflowY:"auto",
         overflowX: "hidden",
-        height: 404,
+        flex: 1,
         width: '100%',
         borderBottom: "1px solid rgba(34,36,38,0.15)",
+        '&::-webkit-scrollbar': {
+            display: 'block',
+            width: 14,
+        },
+        '&::-webkit-scrollbar-track': {
+            background: 'transparent'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0,0,0,.12)',
+            borderRadius: 12,
+            border: "4px solid hsla(0,0%,100%,.98)",
+            backgroundClip: "padding-box",
+            height:40
+        },
     },
     conversationItem:{
         width: "100%",
@@ -108,7 +140,14 @@ const useStyle = makeStyles({
         fontSize: "16px",
         fontWeight: "bold",
         borderBottom: "1px solid rgba(34,36,38,0.15)",
-        flex: "0 1 64px"
+        flex: "0 1 64px",
+        flexWrap: "nowrap"
+    },
+    conversationTitle: {
+        flex: 1,
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
     },
     conversationStatus: {
         fontSize: 12,
@@ -121,9 +160,22 @@ const useStyle = makeStyles({
         flex:'1 0 0',
         overflowY:"auto",
         overflowX: "hidden",
-        height: "100%",
         width: '100%',
         borderBottom: "1px solid rgba(34,36,38,0.15)",
+        '&::-webkit-scrollbar': {
+            display: 'block',
+            width: 14,
+        },
+        '&::-webkit-scrollbar-track': {
+            background: 'transparent'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0,0,0,.12)',
+            borderRadius: 12,
+            border: "4px solid hsla(0,0%,100%,.98)",
+            backgroundClip: "padding-box",
+            height:40
+        },
     },
     messageContainer: {
     },
@@ -164,7 +216,8 @@ const useStyle = makeStyles({
     messagesFooter: {
         flex: '0 1 64px',
         minHeight:64,
-        padding: "6px 0"
+        padding: "6px 0",
+        flexWrap: "nowrap"
     },
     chatBoxInput: {
         flexGrow: 1,
@@ -191,6 +244,7 @@ const useStyle = makeStyles({
     }
 
 
-});
+})
+);
 
 export default useStyle;
