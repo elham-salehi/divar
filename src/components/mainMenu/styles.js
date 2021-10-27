@@ -8,13 +8,13 @@ const useStyle = makeStyles(theme=>({
     navItem: {
         fontSize: ".75rem",
         fontWeight:500,
-        color: 'rgb(0 0 0 / 56%)',
+        color: 'rgb(0 0 0 / 56%)!important',
         whiteSpace: "nowrap",
         "&:hover": {
-            color: "rgb(0 0 0 / 87%)"
+            color: "rgb(0 0 0 / 87%)!important"
         },
         "&:focus": {
-            color: "rgb(0 0 0 / 87%)"
+            color: "rgb(0 0 0 / 87%)!important"
         }
     },
 

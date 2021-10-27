@@ -13,7 +13,7 @@ const MainMenu = () => {
         if(isLogin()) {
             return (
             <Grid item>
-                <Button onClick={ () =>  localStorage.clear()}><Link to={`/${selectedCity}`} className={classes.navItem}>خروج</Link></Button>
+                <Link to={`/${selectedCity}`}><Button  className={classes.navItem} onClick={ () =>  localStorage.clear()}>خروج</Button></Link>
             </Grid>
             )
         }
