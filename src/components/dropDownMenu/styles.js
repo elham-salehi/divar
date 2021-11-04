@@ -12,13 +12,14 @@ const useStyle = makeStyles(theme=>({
     },
     dropdownMenu: {
         position: "relative",
+        flex: '5%',
+        marginRight: "10px"
     },
     dropdownButton: {
         position: "relative",
-        border: "1px solid #bdbdbd!important",
         borderRadius: "3px!important",
-        minWidth: "50px!important",
-        height: "50px!important",
+        minWidth: "40px!important",
+        height: "40px!important",
     },
     dropdownContainer: {
         position: "relative",

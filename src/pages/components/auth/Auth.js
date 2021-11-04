@@ -73,9 +73,6 @@ const Auth = () => {
             localStorage.setItem("x-auth-token",data.headers["x-auth-token"]);
             history.push(location.state.referrer)
             return toast.success(".شما با موفقیت وارد شدید");
-            toggleValidationCodeModal(layoutDispatch);
-            toggleLoginModal(layoutDispatch);
-
         });
 
     };
@@ -109,7 +106,7 @@ const Auth = () => {
     return (
         <div className={classes.root}>
             <MyDivar value={value}/>
-            <Grid direction={"column"} className={classes.loginMessage} justifyContent={"center"} alignItems={"center"}>
+            <Grid container direction={"column"} className={classes.loginMessage} justifyContent={"center"} alignItems={"center"}>
                 <Typography>برای مشاهده و مدیریت آگهی&zwnj;ها، وارد حساب کاربری خود شوید.</Typography>
                 <Button variant={"contained"} color={"primary"}  className={classes.loginBtn}
                         onClick={()=>{toggleLoginModal(layoutDispatch)}}>ورود به حساب کاربری</Button>

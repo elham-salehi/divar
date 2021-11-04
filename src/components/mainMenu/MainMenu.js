@@ -12,7 +12,7 @@ const MainMenu = () => {
     const showLogout = () => {
         if(isLogin()) {
             return (
-            <Grid item>
+            <Grid item >
                 <Link to={`/${selectedCity}`}><Button  className={classes.navItem} onClick={ () =>  localStorage.clear()}>خروج</Button></Link>
             </Grid>
             )

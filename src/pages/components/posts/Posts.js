@@ -9,7 +9,7 @@ const Posts = () => {
 
     return (
         <Grid item container direction={"row"} >
-            {postsByCity.map(item => <PostItem data={item}/>)}
+            {postsByCity.map(item => <PostItem key={item._id} data={item}/>)}
         </Grid>
     );
 };

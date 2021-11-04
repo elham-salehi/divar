@@ -23,6 +23,7 @@ const useStyle = makeStyles(theme => ({
     },
     selectCityButton: {
         width: 120,
+        height: 40,
         color: "rgb(0 0 0 / 56%)!important",
         border: "1px solid transparent!important",
         borderRadius: "3px!important",

@@ -51,7 +51,7 @@ const Home = () => {
     }, [cities,search]);
     useEffect(()=>{
         history.push(`/${selectedCity}`);
-    },[selectedCity]);
+    },[selectedCity,history]);
     return (
         isLoading ? <Preloader/> :
         <Grid container direction={"row-reverse"} >

@@ -6,8 +6,7 @@ const useStyle = makeStyles(theme=>({
         borderRadius: 2,
         lineHeight: 3
     },
-    dropdown: {
-        flex: 1,
+    dropdownContainer: {
         position: "relative",
         display: "inline-block"
     },
@@ -36,7 +35,7 @@ const useStyle = makeStyles(theme=>({
         with: '100%',
         boxShadow: '0 0 1px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 20%)',
         borderRadius: '0 3px 3px 0',
-        zIndex: 1,
+        zIndex: 9999,
         transition: 'transform .1s ease-out,-webkit-transform .1s ease-out'
     },
     dropdownItem: {

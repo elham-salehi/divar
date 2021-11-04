@@ -31,14 +31,18 @@ const CityAutoComplete = ({props}) => {
     } = useAutocomplete({
         id: 'cities-autocomplete',
         options: cities,
-        defaultValue: {name: selectedCity},
         onChange:  (_,option) => {
             if(option.name)
                 setAutoCompleteSelectedCity(layoutDispatch,option.name);
            if(location.pathname === '/')
                setSelectedCity(layoutDispatch,option.name);
         },
-        getOptionSelected:(option, value) =>  option.name === value.name  ,
+        getOptionSelected:(option, value) => {
+           if(selectedCity)
+               return selectedCity
+            else
+              return  (option.name === value.name)
+        }  ,
         getOptionLabel: (option) => option.name,
     });
     useEffect(() => {
@@ -48,12 +52,18 @@ const CityAutoComplete = ({props}) => {
             });
         }
     },[layoutDispatch,cities.length]);
+    const handlePlaceHolder = () => {
+        if(selectedCity)
+            return selectedCity
+        else
+            return "انتخاب شهر..."
+    }
     return (
         <Grid item className={classes.cityAutoComplete}>
             <div {...getRootProps()} >
-                <InputBase inputComponent={"input"} inputRef={props}  inputValue={autoCompleteSelectedCity}
+                <InputBase inputComponent={"input"} inputRef={props}  inputvalue={autoCompleteSelectedCity}
                            className={classes.selectCityInput} classes={{focused:classes.inputBaseFocused}} {...getInputProps()}
-                           placeholder={"انتخاب شهر..."}
+                           placeholder={handlePlaceHolder()}
                            startAdornment={<ArrowDropDownIcon/>}
                 />
             </div>

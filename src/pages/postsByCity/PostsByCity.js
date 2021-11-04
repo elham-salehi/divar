@@ -33,7 +33,7 @@ const PostsByCity = (props) => {
 
     return(
         isLoading ? <Preloader/> :
-        <Grid item container direction={"row"}>
+        <Grid item container direction={"row"} wrap={"nowrap"}>
             {!isPhoneSize && <Sidebar/>}
             <Grid item container direction={"column"} className={classes.main}>
                 <Grid item className={classes.browser}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Button, Grid, NativeSelect, Typography} from "@material-ui/core";
 import useStyle from "./styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -32,6 +32,25 @@ const NewPost = () => {
     const {autoCompleteSelectedCity} = useLayoutState();
 
 
+    const isTehran = useCallback(() => {
+        if ( (!autoCompleteSelectedCity && selectedCity === "تهران" ) || (autoCompleteSelectedCity === selectedCity && selectedCity === "تهران"))
+            return (<div style={{width:"100%"}}>
+                    <Typography className={classes.label}>محدوده آگهی</Typography>
+                    <input className={classes.input} ref={inputRefs.current[4]}/>
+                </div>
+            )
+        else
+        if (autoCompleteSelectedCity !== selectedCity && autoCompleteSelectedCity === "تهران")
+            return (<div>
+                    <Typography className={classes.label}>محدوده آگهی</Typography>
+                    <input className={classes.input} ref={inputRefs.current[4]}/>
+                </div>
+            )
+    },[selectedCity,autoCompleteSelectedCity,classes.label,classes.input]);
+    useEffect(() => {
+        isTehran()
+    },[autoCompleteSelectedCity,isTehran]);
+
     useEffect(() => {
         setIsLoading(layoutDispatch,true);
         getAllCategoriesApi((isOk, data) => {
@@ -53,9 +72,6 @@ const NewPost = () => {
         }
     }, [layoutDispatch,filesLength,files]);
 
-    useEffect(() => {
-        isTehran()
-    },[autoCompleteSelectedCity])
 
     const sendPost = () => {
         setIsLoading(layoutDispatch,true)
@@ -122,23 +138,6 @@ const NewPost = () => {
     const handleChangeCategory = (event) => {
         setCategory(event.target.value)
     }
-
-
-    const isTehran = () => {
-        if ( (!autoCompleteSelectedCity && selectedCity === "تهران" ) || (autoCompleteSelectedCity === selectedCity && selectedCity === "تهران"))
-            return (<div style={{width:"100%"}}>
-                    <Typography className={classes.label}>محدوده آگهی</Typography>
-                    <input className={classes.input} ref={inputRefs.current[4]}/>
-                </div>
-            )
-        else
-        if (autoCompleteSelectedCity !== selectedCity && autoCompleteSelectedCity === "تهران")
-            return (<div>
-                    <Typography className={classes.label}>محدوده آگهی</Typography>
-                    <input className={classes.input} ref={inputRefs.current[4]}/>
-                </div>
-            )
-    };
 
     const showImagePath = () => {
         let indents = [];

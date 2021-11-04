@@ -34,17 +34,17 @@ const BrowsHeader = ({categoryTitle}) => {
     return (
            <Grid container direction={"row"} alignItems={"center"} className={classes.searchCat}>
                {(!isTabletSize &&
-               <Grid item  classname={classes.dropdown}>
+               <Grid item className={classes.dropdownContainer}>
                   <Button variant={"contained"}  className={classes.dropdownBtn} onClick={() => setShowDropdown(!showDropdown)} onBlur={hide}>
                       {value}
                       <ExpandMoreIcon/>
-                       <Grid container direction={"column"} className={classes.dropdownList} style={{display: showDropdown ? 'block' : 'none' }}>
-                          <Grid item> <Button  alignItems={"center"} className={classes.dropdownItem} onClick={() => setValue(categoryTitle)}>{categoryTitle}</Button></Grid>
-                           {categories.map(item => <Grid item> <Button  alignItems={"center"} className={classes.dropdownItem} onClick={() => setValue(item.name)}>{item.name}</Button></Grid>)}
-                       </Grid>
                   </Button>
+                       <Grid container direction={"column"} className={classes.dropdownList} style={{display: showDropdown ? 'block' : 'none' }}>
+                          <Grid item> <Button  className={classes.dropdownItem} onClick={() => setValue(categoryTitle)}>{categoryTitle}</Button></Grid>
+                           {categories.map(item => <Grid item key={item._id}> <Button className={classes.dropdownItem} onClick={() => setValue(item.name)}>{item.name}</Button></Grid>)}
+                       </Grid>
                </Grid>)}
-               <Grid item classname={classes.searchInputContainer}  >
+               <Grid item className={classes.searchInputContainer}  >
                    <InputBase placeholder={`جستجو در ${value}` } className={classes.searchInput}/>
                </Grid>
            </Grid>

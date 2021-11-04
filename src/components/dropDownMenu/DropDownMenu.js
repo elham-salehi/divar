@@ -17,7 +17,7 @@ const DropDownMenu = () => {
         closeDropDown(layoutDispatch)
     }
     return (
-        <Grid className={classes.dropdownMenu}>
+        <Grid container className={classes.dropdownMenu} direction={"row"}>
             <Button className={classes.dropdownButton}  onClick={() => toggleDropDown(layoutDispatch)} onBlur={hide} onTouchCancel={hide} >
              <MenuIcon/>
             </Button>

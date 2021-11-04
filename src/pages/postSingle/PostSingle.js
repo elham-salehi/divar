@@ -34,14 +34,14 @@ const PostSingle = (props) => {
     },[props.match.params.id]);
     return (
         <Grid container direction={"row"} className={classes.root}>
-            <Grid item direction={"row"} alignItems={"center"} className={classes.breadCrumbs}>
+            <Grid container item direction={"row"} alignItems={"center"} className={classes.breadCrumbs}>
                 <span>{category.name}</span>
                 <span style={{padding:15,position:"relative"}}><ArrowBackIosIcon style={{fontSize:"0.75rem",position:"absolute",top:17,left:12}}/></span>
                 <span>{post.title}</span>
             </Grid>
           <Grid item container direction={"row"}>
               <Grid item container direction={"column"} className={classes.postDetails}>
-                  <Grid item direction={"row"}>
+                  <Grid item container direction={"row"}>
                       <h1>{post.title}</h1>
                       <Typography className={classes.postSubtitle}>{city.name},{post.district} | {category.name}</Typography>
                   </Grid>
@@ -83,11 +83,11 @@ const PostSingle = (props) => {
                   <Grid item className={classes.postImage}>
                       <img src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${post.images}`} alt={post.title} style={{width:'100%'}} />
                   </Grid>
-                  <Grid item direction={"row"} className={classes.note}>
+                  <Grid item container direction={"row"} className={classes.note}>
                       <TextareaAutosize className={classes.noteArea}    placeholder={"یادداشت شما..."}/>
                       <Typography component={"p"} className={classes.noteHint}>یادداشت تنها برای شما قابل مشاهده است و پس از حذف آگهی، پاک خواهد شد.</Typography>
                   </Grid>
-                  <Grid item direction={"row"}>
+                  <Grid item container direction={"row"}>
                       <Typography component={"p"} className={classes.noteHint}>دیوار هیچ‌گونه منفعت و مسئولیتی در قبال معامله شما ندارد.</Typography>
                   </Grid>
               </Grid>

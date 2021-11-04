@@ -18,12 +18,12 @@ const useStyle = makeStyles((theme) => ({
 
     },
     bottom: {
-        color: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+        color: `theme.palette.grey[theme.palette.type === 'light' ? 200 : 700]!important`,
         position: 'absolute',
 
     },
     top: {
-        color: '#767676',
+        color: '#767676!important',
         animationDuration: '550ms',
         position: 'absolute',
 

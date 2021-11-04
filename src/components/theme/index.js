@@ -18,6 +18,20 @@ const Theme = createTheme({
             startIcon: {
                 marginLeft: "4px",
                 marginRight: "-8px"
+            },
+            containedPrimary: {
+                backgroundColor: colorPrimary,
+                color: '#fff',
+                "&:hover": {
+                    backgroundColor: tinyColor(colorPrimary).lighten().toHexString()
+                },
+                "&:focus": {
+                    backgroundColor: tinyColor(colorPrimary).lighten().toHexString()
+                },
+                "&:active": {
+                    backgroundColor: tinyColor(colorPrimary).darken().toHexString()
+                },
+
             }
         },
         MuiTypography: {

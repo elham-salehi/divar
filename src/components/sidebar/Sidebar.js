@@ -16,7 +16,7 @@ const Categories = ({data}) => {
 
             <ButtonBase style={{width:"100%"}}>
                     <Link to={{pathname:`/categories/${data.name}`,data:data}} className={classes.catStyle}>
-                           <Grid direction={"row"} container alignItems={"center"} >
+                           <Grid container direction={"row"} alignItems={"center"} >
                                <IconComponents tag={data.id}/>
                                <span style={{marginRight: 10}}>{data.name}</span>
                            </Grid>
@@ -77,11 +77,11 @@ const Sidebar = () => {
 
     return (
         isLoading ? <Preloader/> :
-        <Grid item  direction={"column"}  className={classes.sidebar}>
+        <Grid container item  direction={"column"}  className={classes.sidebar}>
             <Grid id={"aside"} className={sidebarClasses.join(" ")}>
                 <Typography className={classes.categoriesTitle}>دسته بندی ها</Typography>
                 {
-                    categories.map(item => <Categories data={item}/>)
+                    categories.map(item => <Categories key={item._id} data={item}/>)
                 }
                 <Divider/>
                 <FilterPosts/>

@@ -306,12 +306,17 @@ const Chat = (props) => {
           return  <span className={classes.newMessageStatus}>(پیام جدید)</span>
       }
     }
-    const showConversationTitle = (conversation) => {
-      if(conversation.contact._id == localUserId)
-          return conversation.user.phoneNumber
-         else
-             return conversation.post.title
-    }
+    const showConversationDetails = (conversation) => {
+      if(conversation.user._id === localUserId)
+         return conversation.contact.phoneNumber
+        else
+        return conversation.user.phoneNumber
+    };
+    const prettyDate = (time) => {
+        const date = new Date(time);
+        const localeSpecificTime = date.toLocaleTimeString();
+        return localeSpecificTime.replace(/:\d+ /, ' ');
+    };
     const showConversations = () => {
       if(!isMobileSize || (isMobileSize  && window.location.pathname.startsWith("/chat") && window.location.pathname.length <= 6))
           return <Grid item container direction={"column"} className={classes.conversationList} >
@@ -334,8 +339,8 @@ const Chat = (props) => {
                                       <img src={`https://divarapi.s3.ir-thr-at1.arvanstorage.com/${conversation.post.images[0]}`} alt={conversation.post.title} style={{width:'100%',height: '100%'}} />
                                   </div>
                                   {unreadMessages(conversation.hasUnreadMessages)}
-                                  <div className={classes.conversationItemTitle}>{showConversationTitle(conversation)}</div>
-                                  <div className={classes.conversationItemContact}>{conversation.contact.phoneNumber}</div>
+                                  <div className={classes.conversationItemTitle}>{conversation.post.title}</div>
+                                  <div className={classes.conversationItemContact}>{showConversationDetails(conversation)}</div>
                                   <div className={classes.conversationItemSummary}></div>
                               </div>
                           </ButtonBase>
@@ -374,7 +379,7 @@ const Chat = (props) => {
                           </div>
                           <div className={classes.messageTime}>
                               {isSeen(message.sender,message.seen)}
-                              <span>{message.time.split("T")[1].split(".")[0]}</span>
+                              <span>{prettyDate(message.time)}</span>
                           </div>
                       </div>
                   </div>

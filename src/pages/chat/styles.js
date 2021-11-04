@@ -11,7 +11,9 @@ const useStyle = makeStyles(theme => ({
             width: "100%",
             height: "100vh",
             margin: 0,
-            border: "none"
+            border: "none",
+            overflow: "hidden",
+            flexWrap: "nowrap",
         },
     },
     conversationList: {
@@ -41,10 +43,11 @@ const useStyle = makeStyles(theme => ({
         flexWrap: "nowrap"
     },
     chatSetting : {
-        flex: '12%'
+        flex: '5%',
+        margin: '0 10px'
     },
     chatTitle : {
-        flex: '88%'
+        flex: '95%'
     },
     logo: {
         width: 48,
