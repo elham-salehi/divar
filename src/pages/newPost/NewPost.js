@@ -16,6 +16,7 @@ import {
 } from "../../context/LayoutContext";
 import {getAllCategoriesApi} from "../../api/api-categories";
 import CityAutoComplete from "../components/cityAutoComplete/CityAutoComplete";
+import Footer from "../../components/footer/Footer";
 
 const NewPost = () => {
 
@@ -179,7 +180,7 @@ const NewPost = () => {
                     onChange={handleChangeCategory}
                     ref={inputRefs.current[5]}
                 >
-                    {categories.map(item => (<option value={item.name}>{item.name}</option>))}
+                    {categories.map((item,index) => (<option key={index} value={item.name}>{item.name}</option>))}
                 </NativeSelect>
             </FormControl>
             <Typography className={classes.label}>قیمت</Typography>
@@ -206,6 +207,7 @@ const NewPost = () => {
                 </Grid>
 
             </Grid>
+            <Footer/>
         </Grid>
     );
 };

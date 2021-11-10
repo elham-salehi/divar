@@ -1,7 +1,7 @@
 # Divar 
 ## Built with React
 
-This is a scaled-down of a famous Iranian web application called "divar" which is written as a training project. built with React, Context, JavaScript, and CSS.in this react project the functional components has been used and The Material-UI is used as a CSS library.
+This is a scaled-down of a famous Iranian web application called "divar" which is written as a training project. Built with React, Context, JavaScript, and CSS. In this react project the functional components has been used and the Material-UI is used as a CSS library.
 
 ### development
 This project is currently in development.

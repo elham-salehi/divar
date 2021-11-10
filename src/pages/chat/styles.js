@@ -180,7 +180,14 @@ const useStyle = makeStyles(theme => ({
             height:40
         },
     },
-    messageContainer: {
+    dateSeparator : {
+        fontSize: "14px",
+        fontWeight: "bold",
+        lineHeight: 1,
+        paddingTop: "10px",
+        paddingBottom: "2px",
+        color: "#9b9b9b",
+        clear: "both"
     },
     message: {
         backgroundColor: '#f5f5f5',

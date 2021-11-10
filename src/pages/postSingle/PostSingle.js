@@ -36,13 +36,15 @@ const PostSingle = (props) => {
         <Grid container direction={"row"} className={classes.root}>
             <Grid container item direction={"row"} alignItems={"center"} className={classes.breadCrumbs}>
                 <span>{category.name}</span>
-                <span style={{padding:15,position:"relative"}}><ArrowBackIosIcon style={{fontSize:"0.75rem",position:"absolute",top:17,left:12}}/></span>
+                <span style={{padding:15,position:"relative"}}><ArrowBackIosIcon style={{fontSize:"0.75rem",position:"absolute",top:10,left:12}}/></span>
                 <span>{post.title}</span>
             </Grid>
           <Grid item container direction={"row"}>
               <Grid item container direction={"column"} className={classes.postDetails}>
                   <Grid item container direction={"row"}>
                       <h1>{post.title}</h1>
+                  </Grid>
+                  <Grid item container direction={"row"}>
                       <Typography className={classes.postSubtitle}>{city.name},{post.district} | {category.name}</Typography>
                   </Grid>
                   <Grid container item direction={"row"}>

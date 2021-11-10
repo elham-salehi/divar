@@ -28,7 +28,7 @@ const Header = () => {
     const [cities, setCities] = useState([]);
     const [search, setSearch] = useState("");
     const [filteredCities, setFilteredCities] = useState([]);
-    const mostVisitedCities=["رشت","قم","کرمانشاه","تبریز","اهواز","اصفهان","شیراز","کرج","مشهد","تهران"];
+    const mostVisitedCities=["تهران","مشهد","کرج","شیراز","اصفهان","اهواز","تیریز","کرمانشاه","قم","رشت"];
 
 
     useEffect(() => {
