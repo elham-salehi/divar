@@ -313,10 +313,18 @@ const Chat = (props) => {
         else
         return conversation.user.phoneNumber
     };
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
     const prettyDate = (time) => {
         const date = new Date(time);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        hours = checkTime(hours);
+        minutes = checkTime(minutes);
         return (hours + ":" + minutes);
 
     };
@@ -372,41 +380,43 @@ const Chat = (props) => {
                       </Link>
                   </Grid>}
               </Grid>
-              <div className={classes.messagesBody} ref={scrollableMessages}>
-              {messages.map((message,index,array) => {
-                  let previousMessage = null;
-                  if(index>0)
-                         previousMessage = array[index - 1];
-                  if ((previousMessage && (new Date(previousMessage.time).getDate() !== new Date(message.time).getDate())) || (index===0)) {
-                      return <>
-                          <Grid item container justifyContent={"center"}>
-                              <div className={classes.dateSeparator}>{moment(message.time, 'YYYY/MM/DD').locale('fa').format('D MMMM')}</div>
-                          </Grid>
-                          <div className={classNames(classes.message,
-                              (localUserId === message.sender) ? classes.sendMessage : classes.receivedMessage)}>
-                              <div className={classes.messageText}>
-                                  {message.text}
+              <div className={classes.messagesBody} >
+                  <div className={classes.messages} ref={scrollableMessages}>
+                      {messages.map((message,index,array) => {
+                          let previousMessage = null;
+                          if(index>0)
+                                 previousMessage = array[index - 1];
+                          if ((previousMessage && (new Date(previousMessage.time).getDate() !== new Date(message.time).getDate())) || (index===0)) {
+                              return <>
+                                  <Grid item container justifyContent={"center"}>
+                                      <div className={classes.dateSeparator}>{moment(message.time, 'YYYY/MM/DD').locale('fa').format('D MMMM')}</div>
+                                  </Grid>
+                                  <div className={classNames(classes.message,
+                                      (localUserId === message.sender) ? classes.sendMessage : classes.receivedMessage)}>
+                                      <div className={classes.messageText}>
+                                          {message.text}
+                                      </div>
+                                      <div className={classes.messageTime}>
+                                          {isSeen(message.sender, message.seen)}
+                                          <span>{prettyDate(message.time)}</span>
+                                      </div>
+                                  </div>
+                              </>
+                          }
+                          else{
+                              return <div className={classNames(classes.message,
+                                  (localUserId === message.sender) ? classes.sendMessage : classes.receivedMessage)}>
+                                  <div className={classes.messageText}>
+                                      {message.text}
+                                  </div>
+                                  <div className={classes.messageTime}>
+                                      {isSeen(message.sender, message.seen)}
+                                      <span>{prettyDate(message.time)}</span>
+                                  </div>
                               </div>
-                              <div className={classes.messageTime}>
-                                  {isSeen(message.sender, message.seen)}
-                                  <span>{prettyDate(message.time)}</span>
-                              </div>
-                          </div>
-                      </>
-                  }
-                  else{
-                      return <div className={classNames(classes.message,
-                          (localUserId === message.sender) ? classes.sendMessage : classes.receivedMessage)}>
-                          <div className={classes.messageText}>
-                              {message.text}
-                          </div>
-                          <div className={classes.messageTime}>
-                              {isSeen(message.sender, message.seen)}
-                              <span>{prettyDate(message.time)}</span>
-                          </div>
-                      </div>
-              }
-              })}
+                      }
+                      })}
+                  </div>
           </div>
               {showMessageInput(currentConversation)}
           </Grid>

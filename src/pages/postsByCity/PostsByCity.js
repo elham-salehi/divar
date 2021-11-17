@@ -11,14 +11,12 @@ import {
     useLayoutState,
     updatePostsByCity,
 } from "../../context/LayoutContext";
-import Preloader from "../../components/preloader/Preloader";
 import useTheme from "@material-ui/core/styles/useTheme";
 
 
 const PostsByCity = (props) => {
     const classes = useStyle();
     const layoutDispatch = useLayoutDispatch();
-    const {isLoading}= useLayoutState();
     const theme = useTheme();
     const isPhoneSize = useMediaQuery(theme.breakpoints.down(568));
 
@@ -32,7 +30,6 @@ const PostsByCity = (props) => {
     },[layoutDispatch,props.match.params.city]);
 
     return(
-        isLoading ? <Preloader/> :
         <Grid item container direction={"row"} wrap={"nowrap"}>
             {!isPhoneSize && <Sidebar/>}
             <Grid item container direction={"column"} className={classes.main}>

@@ -8,8 +8,8 @@ const useStyle = makeStyles({
     },
     main: {
         position: 'relative',
-        padding:"1.75rem 0 0 1.75rem",
-        marginRight: "30px",
+        padding: "1.75rem 0 0 1.75rem",
+        marginRight: "280px",
         flex:7
     },
     divider: {

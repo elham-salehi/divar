@@ -161,25 +161,30 @@ const useStyle = makeStyles(theme => ({
     },
     messagesBody: {
         flex:'1 0 0',
-        overflowY:"auto",
-        overflowX: "hidden",
+        overflow: "hidden",
         width: '100%',
         borderBottom: "1px solid rgba(34,36,38,0.15)",
-        '&::-webkit-scrollbar': {
-            display: 'block',
-            width: 14,
-        },
-        '&::-webkit-scrollbar-track': {
-            background: 'transparent'
-        },
-        '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,.12)',
-            borderRadius: 12,
-            border: "4px solid hsla(0,0%,100%,.98)",
-            backgroundClip: "padding-box",
-            height:40
-        },
     },
+        messages: {
+            overflowY:"auto",
+            overflowX: "hidden",
+            height: '100%',
+            '&::-webkit-scrollbar': {
+                display: 'block',
+                width: 14,
+            },
+            '&::-webkit-scrollbar-track': {
+                background: 'transparent'
+            },
+            '&::-webkit-scrollbar-thumb': {
+                backgroundColor: 'rgba(0,0,0,.12)',
+                borderRadius: 12,
+                border: "4px solid hsla(0,0%,100%,.98)",
+                backgroundClip: "padding-box",
+                height:40
+            },
+
+        },
     dateSeparator : {
         fontSize: "14px",
         fontWeight: "bold",

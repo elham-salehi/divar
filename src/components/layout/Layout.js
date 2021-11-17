@@ -9,7 +9,6 @@ import {useMediaQuery, useTheme} from "@material-ui/core";
 
 const Layout = (props) => {
     const classes = useStyle();
-    const [isLoading,setIsLoading]= useState(true);
     const theme= useTheme();
     const isMobileSize= useMediaQuery(theme.breakpoints.down(768));
     const useHeader = () => {
@@ -19,22 +18,11 @@ const Layout = (props) => {
             if (!isMobileSize)
                 return <Header/>
     }
-    const onLoad = () => {
-        if(isLoading)
-            return <Preloader/>
-        else
-            return ( <React.Fragment>
-                {props.children}
-            </React.Fragment>)
-    };
-    useEffect(()=>{
-        setIsLoading(false);
-
-    },[]);
     return (
         <Grid container direction={"column"} className={classes.root}>
             {useHeader()}
-            {onLoad()}
+            {props.children}
+            <Preloader/>
         </Grid>
     );
 };

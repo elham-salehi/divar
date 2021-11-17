@@ -28,7 +28,7 @@ function layoutReducer(state, action) {
             return {...state, loginModalOpen: !state.loginModalOpen};
         case "TOGGLE_VALIDATION_CODE_MODAL":
             return {...state, validationCodeModalOpen: !state.validationCodeModalOpen};
-        case "IS_LOADING":
+        case "SET_IS_LOADING":
             return {...state, isLoading: action.payload};
         case "SET_POSTS_BY_CITY":
             return {...state, postsByCity: action.payload};
@@ -170,7 +170,7 @@ function setPostsByCity(dispatch, data) {
 }
 function setIsLoading(dispatch, data) {
     dispatch({
-        type: "IS_LOADING",
+        type: "SET_IS_LOADING",
         payload: data
     })
 }

@@ -15,7 +15,6 @@ import {Link} from "react-router-dom";
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import Preloader from "../../components/preloader/Preloader";
 import CityAutoComplete from "../components/cityAutoComplete/CityAutoComplete";
 
 
@@ -24,7 +23,6 @@ const Home = () => {
     const history = useHistory();
     const theme= useTheme();
     const isTabletSize= useMediaQuery(theme.breakpoints.down(1100));
-    const {isLoading}= useLayoutState();
     const {cities}= useLayoutState();
     const {selectedCity} = useLayoutState();
     const layoutDispatch = useLayoutDispatch();
@@ -53,7 +51,6 @@ const Home = () => {
         history.push(`/${selectedCity}`);
     },[selectedCity,history]);
     return (
-        isLoading ? <Preloader/> :
         <Grid container direction={"row-reverse"} >
             {!isTabletSize &&
                 <Grid item container direction={"column"} className={classes.cityContainer} alignItems={"center"} justifyContent={"center"}>

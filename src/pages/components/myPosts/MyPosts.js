@@ -5,13 +5,11 @@ import useStyle from "./styles";
 import NewPostButton from "../../../components/newPostButton/NewPostButton";
 import {getMyPostsApi} from "../../../api/api-posts";
 import MyPostItem from "../myPostItem/MyPostItem";
-import {setIsLoading, useLayoutDispatch, useLayoutState} from "../../../context/LayoutContext";
-import Preloader from "../../../components/preloader/Preloader";
+import {setIsLoading, useLayoutDispatch} from "../../../context/LayoutContext";
 
 const MyPosts = () => {
     const classes = useStyle();
     const layoutDispatch = useLayoutDispatch();
-    const {isLoading}= useLayoutState();
     const [posts,setPosts]=useState([]);
 
     useEffect(()=>{
@@ -41,7 +39,6 @@ if(!posts)
 
 else
     return(
-        isLoading ? <Preloader/> :
         <Grid container direction={"column"} className={classes.root} justifyContent={"center"} alignItems={"center"}>
             <MyDivar value={0}/>
             <Grid container direction={"column"}>

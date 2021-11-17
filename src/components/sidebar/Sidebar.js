@@ -8,7 +8,6 @@ import IconComponents from "./IconComponents";
 import FilterPosts from "../filterPosts/FilterPosts";
 import {getAllCategoriesApi} from "../../api/api-categories";
 import {setCategories, useLayoutDispatch, useLayoutState} from "../../context/LayoutContext";
-import Preloader from "../preloader/Preloader";
 
 const Categories = ({data}) => {
     const classes = useStyle();
@@ -25,39 +24,17 @@ const Categories = ({data}) => {
 
     );
 };
-let p=0;
 
 const Sidebar = () => {
-    const classes = useStyle({p});
+    const classes = useStyle();
     const layoutDispatch = useLayoutDispatch();
     const {categories}= useLayoutState();
-    const [scrolled,setScrolled]=useState(false);
-    const [isLoading,setIsLoading]= useState(true);
 
-
-    const handleScroll=() => {
-        const offset=window.scrollY;
-        const elem=document.getElementById("aside");
-        if(elem)
-        {
-            p=elem.offsetHeight-window.innerHeight;
-            if(offset > p){
-                setScrolled(true);
-            }
-            else{
-                setScrolled(false);
-            }
-        }
-
-
-
-    }
 
     useEffect(()=>{
         getAllCategoriesApi((isOk,data) => {
             if (isOk){
                 setCategories(layoutDispatch, data);
-                setIsLoading(false);
         }
             else{
                 alert(data);
@@ -66,19 +43,10 @@ const Sidebar = () => {
 
     },[layoutDispatch]);
 
-    useEffect(() => {
-        window.addEventListener('scroll',handleScroll)
-    })
-    let sidebarClasses=[];
-    if(scrolled){
-        sidebarClasses.push(classes.fixSidebar);
-    }
-
 
     return (
-        isLoading ? <Preloader/> :
         <Grid container item  direction={"column"}  className={classes.sidebar}>
-            <Grid id={"aside"} className={sidebarClasses.join(" ")}>
+            <Grid>
                 <Typography className={classes.categoriesTitle}>دسته بندی ها</Typography>
                 {
                     categories.map(item => <Categories key={item._id} data={item}/>)
@@ -90,7 +58,5 @@ const Sidebar = () => {
         </Grid>
     );
 };
-export const point = {
-    scrollPoint:p,
-};
+
 export default Sidebar;

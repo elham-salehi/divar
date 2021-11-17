@@ -5,15 +5,17 @@ import {makeStyles} from "@material-ui/styles";
 const useStyle = makeStyles(theme => ({
 
     sidebar: {
+        position: "fixed",
         width: '280px',
+        height: '100vh',
         backgroundColor: '#fff',
+        overflowY: 'scroll',
         paddingLeft:"30px",
         paddingRight: "10px",
-    },
-    fixSidebar: {
-      position:"fixed",
-      transform :({ p }) => `translate(0, -${p}px)`,
-        width: '280px',
+        '&::-webkit-scrollbar': {
+          width: 0,
+          background: "transparent" /* make scrollbar transparent */
+        }
     },
 
     categoriesTitle: {
