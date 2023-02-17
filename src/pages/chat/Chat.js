@@ -21,7 +21,7 @@ const Chat = (props) => {
     const classes = useStyle();
     const scrollableMessages = useRef();
     const scrollableConversations = useRef();
-    const socket = React.useRef(SocketIOClient("https://divar-api.herokuapp.com"));
+    const socket = React.useRef(SocketIOClient("https://divar-api.iran.liara.run"));
     const [messages, setMessages] = React.useState([]);
     const [conversations,setConversations]=  React.useState([]);
     const [newMessage, setNewMessage] = React.useState([]);
